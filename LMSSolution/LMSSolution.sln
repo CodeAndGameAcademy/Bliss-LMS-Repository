@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.36811.4 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.AdminPanel", "LMS.AdminPanel\LMS.AdminPanel.csproj", "{E1D3C249-0054-482D-94FD-B48932B96121}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Domain", "LMS.Domain\LMS.Domain.csproj", "{BB68D03C-C7DD-4276-8CD3-904753800E19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Infrastructure", "LMS.Infrastructure\LMS.Infrastructure.csproj", "{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E1D3C249-0054-482D-94FD-B48932B96121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1D3C249-0054-482D-94FD-B48932B96121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1D3C249-0054-482D-94FD-B48932B96121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB68D03C-C7DD-4276-8CD3-904753800E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB68D03C-C7DD-4276-8CD3-904753800E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB68D03C-C7DD-4276-8CD3-904753800E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB68D03C-C7DD-4276-8CD3-904753800E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,12 @@ namespace LMS.AdminPanel.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var userId = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(userId))
+                return RedirectToAction("Login", "Auth");
+
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }
