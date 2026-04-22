@@ -1,0 +1,15 @@
+﻿<!-- meta tags and other links -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<partial name="~/Views/Shared/Partials/_Head.cshtml" />
+
+<body>
+     @RenderBody()
+   
+    <partial name="~/Views/Shared/Partials/_Scripts.cshtml" />
+    
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

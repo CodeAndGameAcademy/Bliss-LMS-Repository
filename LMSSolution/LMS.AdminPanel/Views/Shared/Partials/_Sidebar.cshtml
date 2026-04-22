@@ -1,0 +1,99 @@
+﻿@{
+}
+<aside class="sidebar">
+    <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+    </button>
+    <div>
+        <a href="@Url.Action("Index", "Dashboard")" class="sidebar-logo">
+            <img src="~/images/logo.png" alt="site logo" class="light-logo">
+            <img src="~/images/logo-light.png" alt="site logo" class="dark-logo">
+            <img src="~/images/logo-icon.png" alt="site logo" class="logo-icon">
+        </a>
+    </div>
+    <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">
+                    <iconify-icon icon="hugeicons:dashboard-square-01" class="menu-icon"></iconify-icon>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "Slider")">
+                    <iconify-icon icon="hugeicons:image-01" class="menu-icon"></iconify-icon>
+                    <span>Slider</span>
+                </a>
+            </li>
+
+            <li class="dropdown mt-4">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="hugeicons:teacher" class="menu-icon"></iconify-icon>
+                    <span>Instructor</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="@Url.Action("Create", "Instructor")"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Create</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Instructor")"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> List</a>
+                    </li>                    
+                </ul>
+            </li>
+
+            <li class="sidebar-menu-group-title">Course Management</li>
+            <li>
+                <a href="@Url.Action("Index", "CourseLanguage")">
+                    <iconify-icon icon="hugeicons:translate" class="menu-icon"></iconify-icon>
+                    <span>Course Language</span>
+                </a>
+            </li>
+
+            <li class="dropdown mt-4">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="hugeicons:folder-01" class="menu-icon"></iconify-icon>
+                    <span>Category</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="@Url.Action("Create", "Category")"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Create</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Category")"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> List</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dropdown mt-4">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="hugeicons:book-open-01" class="menu-icon"></iconify-icon>
+                    <span>Course</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="@Url.Action("Create", "Course")"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Create</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Course")"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> List</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "CourseModule")">
+                    <iconify-icon icon="hugeicons:layers-01" class="menu-icon"></iconify-icon>
+                    <span>Course Module</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "CourseContent")">
+                    <iconify-icon icon="hugeicons:play-circle" class="menu-icon"></iconify-icon>
+                    <span>Course Content</span>
+                </a>
+            </li>
+                       
+        </ul>
+    </div>
+</aside>
