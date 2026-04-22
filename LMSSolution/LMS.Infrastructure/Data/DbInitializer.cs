@@ -2,11 +2,6 @@
 using LMS.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LMS.Infrastructure.Data
 {
@@ -33,7 +28,7 @@ namespace LMS.Infrastructure.Data
                 PrimaryDeviceId = "Admin",
                 PrimaryDeviceInfo = "Admin",
                 SecondaryDeviceId = "Admin",
-                SecondaryDeviceInfo = "Admin",                
+                SecondaryDeviceInfo = "Admin",
             };
 
             context.Users.Add(admin);

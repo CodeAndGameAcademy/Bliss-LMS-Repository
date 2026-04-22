@@ -1,0 +1,12 @@
+﻿@{
+    var message = Context.Items["ErrorMessage"]?.ToString();
+}
+
+<div class="alert alert-danger mt-4">
+    <h4>Error Occurred</h4>
+    <p>@message</p>
+</div>
+
+<a href="javascript:history.back()" class="btn btn-primary">
+    Go Back
+</a>

@@ -12,6 +12,8 @@ namespace LMS.Infrastructure.Data
 
         // DbSets
         public DbSet<User> Users => Set<User>();
+        public DbSet<Slider> Sliders => Set<Slider>();
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -86,7 +86,7 @@ namespace LMS.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear(); 
+            HttpContext.Session.Clear();
             return RedirectToAction("Login", "Auth");
         }
     }

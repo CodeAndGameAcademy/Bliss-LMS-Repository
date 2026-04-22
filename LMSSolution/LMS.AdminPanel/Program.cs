@@ -1,4 +1,5 @@
 using LMS.AdminPanel.Filters;
+using LMS.AdminPanel.Services;
 using LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,13 @@ namespace LMS.AdminPanel
             builder.Services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<AuthFilter>();
+                options.Filters.Add<GlobalExceptionFilter>();
             });
+
+
+            builder.Services.AddHttpContextAccessor();
+            
+            builder.Services.AddScoped<IFileService, FileService>();
 
 
             // DATABASE CONFIGURATION  
