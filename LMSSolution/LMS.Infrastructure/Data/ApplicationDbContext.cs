@@ -14,6 +14,7 @@ namespace LMS.Infrastructure.Data
         public DbSet<User> Users => Set<User>();
         public DbSet<Slider> Sliders => Set<Slider>();
         public DbSet<Instructor> Instructors => Set<Instructor>();
+        public DbSet<CourseLanguage> CourseLanguages => Set<CourseLanguage>();
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
