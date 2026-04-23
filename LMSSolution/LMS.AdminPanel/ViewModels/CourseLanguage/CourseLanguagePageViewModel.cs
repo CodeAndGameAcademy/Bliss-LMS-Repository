@@ -1,6 +1,4 @@
-﻿using LMS.AdminPanel.ViewModels.Slider;
-
-namespace LMS.AdminPanel.ViewModels.CourseLanguage
+﻿namespace LMS.AdminPanel.ViewModels.CourseLanguage
 {
     public class CourseLanguagePageViewModel
     {

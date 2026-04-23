@@ -3,7 +3,7 @@
 namespace LMS.AdminPanel.ViewModels.Slider
 {
     public class UpdateSliderViewModel
-    {        
+    {
         public IFormFile? ImageFile { get; set; }
 
         public string? ExistingImage { get; set; }

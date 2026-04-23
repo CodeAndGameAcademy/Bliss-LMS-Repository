@@ -27,7 +27,7 @@ namespace LMS.AdminPanel.Controllers
                 Sliders = _context.Sliders.OrderBy(x => x.OrderIndex).ToList()
             };
 
-            return View("Slider",model);
+            return View("Slider", model);
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace LMS.AdminPanel.Controllers
 
                     return View("Slider", model);
                 }
-                    
+
 
                 // Validate OrderIndex
                 var exists = await _context.Sliders
@@ -86,9 +86,9 @@ namespace LMS.AdminPanel.Controllers
                 model.Sliders = await _context.Sliders
                        .OrderBy(x => x.OrderIndex)
                        .ToListAsync();
-                
+
                 ModelState.AddModelError("", ex.Message);
-                return View("Slider",model);
+                return View("Slider", model);
             }
         }
 
@@ -142,11 +142,11 @@ namespace LMS.AdminPanel.Controllers
 
                 return View(model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "Something went wrong while loading slider. - "+ex.Message);
+                ModelState.AddModelError("", "Something went wrong while loading slider. - " + ex.Message);
                 return RedirectToAction(nameof(Index));
-            }            
+            }
         }
 
         [HttpPost]

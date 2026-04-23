@@ -1,7 +1,4 @@
-﻿using LMS.AdminPanel.Common.Constants;
-using LMS.AdminPanel.Services;
-using LMS.AdminPanel.ViewModels.CourseLanguage;
-using LMS.AdminPanel.ViewModels.Slider;
+﻿using LMS.AdminPanel.ViewModels.CourseLanguage;
 using LMS.Application.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Infrastructure.Data;
@@ -11,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 namespace LMS.AdminPanel.Controllers
 {
     public class CourseLanguageController : Controller
-    {        
+    {
         private readonly ApplicationDbContext _context;
 
         public CourseLanguageController(ApplicationDbContext context)
-        {     
+        {
             _context = context;
         }
 
@@ -26,7 +23,7 @@ namespace LMS.AdminPanel.Controllers
                 CourseLanguages = _context.CourseLanguages.IgnoreQueryFilters().ToList()
             };
 
-            return View("CourseLanguage",model);
+            return View("CourseLanguage", model);
         }
 
         [HttpPost]
@@ -40,7 +37,7 @@ namespace LMS.AdminPanel.Controllers
                     model.CourseLanguages = await _context.CourseLanguages.ToListAsync();
                     return View("CourseLanguage", model);
                 }
-                    
+
 
                 // Validate CourseLanguage Name
                 var exists = await _context.CourseLanguages
@@ -135,11 +132,11 @@ namespace LMS.AdminPanel.Controllers
 
                 return View(model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "Something went wrong while loading slider. - "+ex.Message);
+                ModelState.AddModelError("", "Something went wrong while loading slider. - " + ex.Message);
                 return RedirectToAction(nameof(Index));
-            }            
+            }
         }
 
         [HttpPost]
@@ -156,7 +153,7 @@ namespace LMS.AdminPanel.Controllers
 
                 // Reload UI data if invalid
                 if (!ModelState.IsValid)
-                {                    
+                {
                     ViewBag.CourseLanguageId = id;
                     return View(model);
                 }
@@ -167,7 +164,7 @@ namespace LMS.AdminPanel.Controllers
 
                 if (exists)
                 {
-                    ModelState.AddModelError("", "Language already exists");                    
+                    ModelState.AddModelError("", "Language already exists");
                     ViewBag.CourseLanguageId = id;
                     return View(model);
                 }
@@ -183,7 +180,7 @@ namespace LMS.AdminPanel.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);                
+                ModelState.AddModelError("", ex.Message);
                 ViewBag.CourseLanguageId = id;
 
                 return View(model);

@@ -1,7 +1,6 @@
 ﻿using LMS.AdminPanel.Common.Constants;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.Instructor;
-using LMS.AdminPanel.ViewModels.Slider;
 using LMS.Application.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Infrastructure.Data;
@@ -37,7 +36,7 @@ namespace LMS.AdminPanel.Controllers
         }
 
         public IActionResult Create()
-        {            
+        {
             return View();
         }
 
@@ -117,7 +116,7 @@ namespace LMS.AdminPanel.Controllers
 
                 if (entity == null)
                     throw new NotFoundException("Instructor not found");
-                
+
                 entity.DeletedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
 
@@ -129,7 +128,7 @@ namespace LMS.AdminPanel.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-        
+
         public async Task<IActionResult> Restore(Guid id)
         {
             try

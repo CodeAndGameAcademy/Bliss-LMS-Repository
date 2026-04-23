@@ -20,7 +20,7 @@ namespace LMS.AdminPanel
 
 
             builder.Services.AddHttpContextAccessor();
-            
+
             builder.Services.AddScoped<IFileService, FileService>();
 
 

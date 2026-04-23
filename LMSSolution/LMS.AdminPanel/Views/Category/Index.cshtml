@@ -1,16 +1,24 @@
-﻿@model  List<LMS.Domain.Entities.Instructor>
+﻿@model List<LMS.Domain.Entities.Category>
 
 @{
-    ViewData["title"] = "Instructor";
-    ViewData["subTitle"] = "Instructor List";
+    ViewData["title"] = "Category";
+    ViewData["subTitle"] = "Category List";
 }
 
 <div class="row gy-4">
 
     <div class="col-lg-12">
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                @TempData["Error"]
+            </div>
+        }
+        
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Instructor List</h5>
+                <h5 class="card-title mb-0">Category List</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -18,9 +26,9 @@
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
+                                <th scope="col">Slug</th>
                                 <th scope="col">Display Name</th>
-                                <th scope="col">Degree</th>                                
-                                <th scope="col">Certification</th>                                
+                                <th scope="col">Order Index</th>                                                                                              
                                 <th scope="col" class="text-center">Active Status</th>
                                 <th scope="col" class="text-end">Action</th>
                             </tr>
@@ -31,30 +39,41 @@
                             {
                                 <tr>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="@Url.Content("~/" + item.Image)" alt="Instructor" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                            <h6 class="text-md mb-0 fw-medium flex-grow-1">@item.Name</h6>
+                                        @{
+                                            var level = item.DisplayName?.Split(">>").Length ?? 1;
+                                            var indent = (level - 1) * 20;
+                                        }
+
+                                        <div class="d-flex align-items-center" style="padding-left:@(indent)px;">
+                                            <img src="@Url.Content("~/" + item.Image)" alt="Category" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                                            <h6 class="text-md mb-0 fw-medium flex-grow-1">
+                                                @for (int i = 1; i < level; i++)
+                                                {
+                                                    <span class="text-muted">--&nbsp;</span>
+                                                }
+                                                @item.Name
+                                            </h6>
                                         </div>
                                     </td>
+                                    <td>@item.Slug</td>
                                     <td>@item.DisplayName</td>
-                                    <td>@item.Degree</td>
-                                    <td>@item.CertificationSkill</td>
+                                    <td>@item.OrderIndex</td>
                                     <td class="text-center"> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span> </td>
                                     <td class="text-end">
                                         <a asp-action="Edit"
-                                           asp-controller="Instructor"
+                                           asp-controller="Category"
                                            asp-route-id="@item.Id"
                                            class="btn w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                             <iconify-icon icon="lucide:edit"></iconify-icon>
                                         </a>
-                                        <form asp-action="SoftDelete" asp-controller="Instructor" method="post" style="display:inline;">
+                                        <form asp-action="SoftDelete" asp-controller="Category" method="post" style="display:inline;">
                                             @Html.AntiForgeryToken()
 
                                             <input type="hidden" name="id" value="@item.Id" />
 
                                             <button type="submit"
                                                     class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center border-0"
-                                                    onclick="return confirm('Are you sure you want to delete this Instructor?');">
+                                                    onclick="return confirm('Are you sure you want to delete this Category?');">
 
                                                 <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
                                             </button>
@@ -62,8 +81,6 @@
                                     </td>
                                 </tr>
                             }
-
-                            
 
                         </tbody>
                     </table>

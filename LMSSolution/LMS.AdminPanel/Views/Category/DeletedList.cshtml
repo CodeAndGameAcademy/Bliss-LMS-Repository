@@ -1,0 +1,60 @@
+﻿@model List<LMS.Domain.Entities.Category>
+
+@{
+    ViewData["title"] = "Deleted Category";
+    ViewData["subTitle"] = "Deleted Category List";
+}
+
+<div class="row gy-4">
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Deleted Category List</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table bordered-table mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Slug</th>
+                                <th scope="col">Display Name</th>
+                                <th scope="col">Order Index</th>                                                                                              
+                                <th scope="col" class="text-center">Active Status</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="@Url.Content("~/" + item.Image)" alt="Instructor" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                                            <h6 class="text-md mb-0 fw-medium flex-grow-1">@item.Name</h6>
+                                        </div>
+                                    </td>
+                                    <td>@item.Slug</td>
+                                    <td>@item.DisplayName</td>
+                                    <td>@item.OrderIndex</td>
+                                    <td class="text-center"> <span class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Deactive</span> </td>
+                                    <td class="text-end">
+                                        <a asp-action="Restore"
+                                           asp-controller="Category"
+                                           asp-route-id="@item.Id"
+                                           class="btn w-32-px h-32-px bg-warning-focus text-warning-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <iconify-icon icon="mingcute:restore-line" class="fs-5"></iconify-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- card end -->
+    </div>
+</div>
