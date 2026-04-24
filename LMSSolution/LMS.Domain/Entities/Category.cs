@@ -24,6 +24,6 @@ namespace LMS.Domain.Entities
         public ICollection<Category> Children { get; set; } = new List<Category>();
 
         // Many-to-Many with Course
-        // public ICollection<CourseCategory> CourseCategories { get; set; } = new List<CourseCategory>();
+        public ICollection<CourseCategory> CourseCategories { get; set; } = new List<CourseCategory>();
     }
 }

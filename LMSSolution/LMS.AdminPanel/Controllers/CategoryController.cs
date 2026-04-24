@@ -2,7 +2,6 @@
 using LMS.AdminPanel.Helpers;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.Category;
-using LMS.AdminPanel.ViewModels.Instructor;
 using LMS.Application.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Infrastructure.Data;
@@ -106,7 +105,7 @@ namespace LMS.AdminMVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
-            {                
+            {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
@@ -255,7 +254,7 @@ namespace LMS.AdminMVC.Controllers
                     Slug = entity.Slug,
                     OrderIndex = entity.OrderIndex,
                     ParentId = entity.ParentId,
-                    Description = entity.Description,                    
+                    Description = entity.Description,
                     ExistingImage = entity.Image
                 };
 
@@ -276,7 +275,7 @@ namespace LMS.AdminMVC.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "Something went wrong while loading Instructor. - " + ex.Message;                
+                TempData["Error"] = "Something went wrong while loading Instructor. - " + ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -419,7 +418,7 @@ namespace LMS.AdminMVC.Controllers
             return $"{parent.DisplayName} >> {name}";
         }
 
-        
+
         private async Task ValidateDuplicateAsync(string name, Guid? parentId, Guid? excludeId = null)
         {
             var exists = await _context.Categories

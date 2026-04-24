@@ -1,0 +1,486 @@
+﻿@model LMS.AdminPanel.ViewModels.Course.UpdateCourseViewModel
+
+@{
+    ViewData["title"] = "Edit Course";
+    ViewData["subTitle"] = "Edit Course";
+}
+
+<div class="row gy-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">Edit Course</h6>
+            </div>
+            <div class="card-body">
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                </div>
+
+                <form id="courseForm"
+                    asp-action="Edit" 
+                    asp-controller="Course" 
+                    method="post" 
+                    enctype="multipart/form-data">
+
+                    @Html.AntiForgeryToken()
+
+                <div class="row gy-3">
+                    
+                    <div class="col-12">
+                        <label class="form-label">Course Title <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="Title" class="form-control" id="Title">
+                            <span asp-validation-for="Title" class="text-danger d-block"></span>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Slug <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="Slug" class="form-control" id="Slug">
+                            <span asp-validation-for="Slug" class="text-danger d-block"></span>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Subtitle <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="Subtitle" class="form-control">
+                            <span asp-validation-for="Subtitle" class="text-danger d-block"></span>
+                    </div>
+                    
+                    <div class="col-12">
+                        <label class="form-label">Short Description <span class="text-danger-600">*</span></label>
+                        <textarea asp-for="ShortDescription" class="form-control" rows="4" cols="50" placeholder="Enter a description..."></textarea>
+                            <span asp-validation-for="ShortDescription" class="text-danger d-block"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Long Description <span class="text-danger-600">*</span></label>
+                        <div class="border border-neutral-200 radius-8 overflow-hidden">
+                            <div class="height-200">
+                                <!-- Editor Toolbar Start -->
+                                <div id="toolbar-container">
+                                    <span class="ql-formats">
+                                        <select class="ql-font"></select>
+                                        <select class="ql-size"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-bold"></button>
+                                        <button class="ql-italic"></button>
+                                        <button class="ql-underline"></button>
+                                        <button class="ql-strike"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <select class="ql-color"></select>
+                                        <select class="ql-background"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-script" value="sub"></button>
+                                        <button class="ql-script" value="super"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-header" value="1"></button>
+                                        <button class="ql-header" value="2"></button>
+                                        <button class="ql-blockquote"></button>
+                                        <button class="ql-code-block"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-list" value="ordered"></button>
+                                        <button class="ql-list" value="bullet"></button>
+                                        <button class="ql-indent" value="-1"></button>
+                                        <button class="ql-indent" value="+1"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-direction" value="rtl"></button>
+                                        <select class="ql-align"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-link"></button>
+                                        <button class="ql-image"></button>
+                                        <button class="ql-video"></button>
+                                        <button class="ql-formula"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-clean"></button>
+                                    </span>
+                                </div>
+                                <!-- Editor Toolbar Start -->
+                                <!-- Editor start -->
+                                <div id="editor">                                    
+                                </div>
+                                <!-- Edit End -->
+                            </div>                                
+                                <!-- Validation -->
+                                <span asp-validation-for="LongDescription" class="text-danger d-block"></span>                                
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Course Language <span class="text-danger-600">*</span></label>
+                            <select class="form-select" asp-for="CourseLanguageId" asp-items="ViewBag.CourseLanguages">
+                            </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Difficulty Level <span class="text-danger-600">*</span></label>
+                            <select class="form-select" asp-for="DifficultyLevel" asp-items="ViewBag.DifficultyLevels">
+                            </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Free/Paid <span class="text-danger-600">*</span></label>
+                            <select class="form-select" id="CourseType" asp-for="CourseType" asp-items="ViewBag.CourseTypes">                            
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Price <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="Price" id="Price" class="form-control">
+                            <span asp-validation-for="Price" class="text-danger d-block"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Final Price <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="FinalPrice" id="FinalPrice" class="form-control">
+                            <span asp-validation-for="FinalPrice" class="text-danger d-block"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Course Status <span class="text-danger-600">*</span></label>
+                            <select class="form-select" asp-for="CourseStatus" asp-items="ViewBag.CourseStatuses">
+                            </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Categories <span class="text-danger-600">*</span></label>
+                        <div class="card p-0">                            
+                            <div class="card-body p-24">
+                                <div class="d-flex align-items-center flex-wrap gap-24">
+
+                                        @foreach (var item in (List<SelectListItem>)ViewBag.Categories)
+                                        {
+                                            var isChecked = Model.CategoryIds != null &&
+                                                Model.CategoryIds.Contains(Guid.Parse(item.Value));
+
+                                            <div class="bg-primary-50 px-20 py-12 radius-8 mb-2">
+                                                <span class="form-check checked-primary d-flex align-items-center gap-2">
+
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           name="CategoryIds"
+                                                           value="@item.Value"
+                                                           id="cat_@item.Value"
+                                                           @(isChecked ? "checked" : "") />
+
+                                                    <label class="form-check-label line-height-1 fw-medium text-secondary-light"
+                                                           for="cat_@item.Value">
+                                                        @item.Text
+                                                    </label>
+
+                                                </span>
+                                            </div>
+                                        }
+                                </div>
+                                    <span asp-validation-for="CategoryIds" class="text-danger d-block mt-8"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Learning Outcomes</label>
+
+                        <div id="learn-container">
+                            @for (int i = 0; i < Model.CourseLearningOutcomes.Count; i++)
+                            {
+                                <div class="input-group mb-2">
+                                    <input type="text"
+                                            name="CourseLearningOutcomes[@i]"
+                                            class="form-control radius-8"
+                                            placeholder="What you will learn"
+                                            value="@Model.CourseLearningOutcomes[i]">
+                                    <button type="button" class="btn btn-outline-danger remove-field"
+                                                @(i == 0 ? "disabled" : "")>
+                                        ✖
+                                    </button>
+                                </div>
+                            }
+                            
+                        </div>
+
+                        <span asp-validation-for="CourseLearningOutcomes" class="text-danger d-block mt-8"></span>
+
+                        <button type="button" id="add-learn" class="btn btn-sm btn-warning mt-1 add-btn">
+                            + Add Learning Outcomes
+                        </button>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Course Requirements</label>
+
+                        <div id="requirement-container">
+                            @for (int i = 0; i < Model.CourseRequirements.Count; i++)
+                            {
+                                <div class="input-group mb-2">
+                                    <input type="text"
+                                               name="CourseRequirements[@i]"
+                                            class="form-control radius-8"
+                                            placeholder="Course Requirements"
+                                            value="@Model.CourseRequirements[i]">
+                                    <button type="button" class="btn btn-outline-danger remove-field"
+                                                @(i == 0 ? "disabled" : "")>
+                                        ✖
+                                    </button>
+                                </div>
+                            }
+
+                        </div>
+
+                            <span asp-validation-for="CourseRequirements" class="text-danger d-block mt-8"></span>
+
+                        <button type="button" id="add-requirement" class="btn btn-sm btn-warning mt-1 add-btn">
+                            + Add Course Requirements
+                        </button>
+                    </div>
+
+                    <div class="col-12">
+                            <label class="form-label">Course TargetAudience</label>
+
+                        <div id="audience-container">
+                            @for (int i = 0; i < Model.CourseTargetAudiences.Count; i++)
+                            {
+                                <div class="input-group mb-2">
+                                    <input type="text"
+                                               name="CourseTargetAudiences[@i]"
+                                            class="form-control radius-8"
+                                            placeholder="Course Requirements"
+                                               value="@Model.CourseTargetAudiences[i]">
+                                        <button type="button" class="btn btn-outline-danger remove-field"
+                                                @(i == 0 ? "disabled" : "")>
+                                        ✖
+                                    </button>
+                                </div>
+                            }
+
+                        </div>
+
+                            <span asp-validation-for="CourseTargetAudiences" class="text-danger d-block mt-8"></span>
+
+                        <button type="button" id="add-audience" class="btn btn-sm btn-warning mt-1 add-btn">
+                            + Add Target Audience
+                        </button>
+                    </div>
+
+                        <!-- EXISTING IMAGE -->
+                        <div class="col-12">
+                            <label class="form-label">Current Image</label>
+
+                            @if (!string.IsNullOrEmpty(Model.ExistingThumbnail))
+                            {
+                                <div class="mb-2">
+                                    <img src="@Url.Content("~/" + Model.ExistingThumbnail)"
+                                         width="150"
+                                         class="rounded border" />
+                                </div>
+                            }
+                        </div>
+                    
+                    <div class="col-12">
+                        <label class="form-label">Replace Image</label>
+                        <div class="upload-image-wrapper">
+                            <div class="uploaded-img d-none position-relative h-160-px w-100 border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50">
+                                <button type="button" class="uploaded-img__remove position-absolute top-0 end-0 z-1 text-2xxl line-height-1 me-8 mt-8 d-flex bg-danger-600 w-40-px h-40-px justify-content-center align-items-center rounded-circle">
+                                    <iconify-icon icon="radix-icons:cross-2" class="text-2xl text-white"></iconify-icon>
+                                </button>
+                                <img id="uploaded-img__preview" class="w-100 h-100 object-fit-cover" src="~/images/user.png" alt="image">
+                            </div>
+                            <label class="upload-file h-160-px w-100 border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1" for="upload-file">
+                                <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
+                                <span class="fw-semibold text-secondary-light">Upload</span>
+                                    <input id="upload-file" name="Thumbnail" type="file" hidden>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">                        
+                        <div class="form-switch switch-success d-flex align-items-center gap-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switch3" asp-for="IsSequentialAccess">
+                            <label class="form-check-label line-height-1 fw-medium text-secondary-light" for="switch3">Sequential Chapter Access</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <!-- Hidden Field -->
+                        <textarea asp-for="LongDescription" id="LongDescription" hidden></textarea>
+
+                        <button type="submit" class="btn btn-primary-600">Update Course</button>
+                            <a asp-action="Index" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+            
+                </form>
+            </div>
+        </div><!-- card end -->
+    </div>
+
+</div>
+
+@section Scripts
+{
+
+    <script src='/js/editor.highlighted.min.js'></script>
+    <script src='/js/editor.quill.js'></script>
+    <script src='/js/editor.katex.min.js'></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // ==================== QUILL EDITOR ====================
+            const quill = new Quill('#editor', {
+                modules: {
+                    syntax: true,
+                    toolbar: '#toolbar-container',
+                },
+                placeholder: 'Compose an epic...',
+                theme: 'snow',
+            });
+
+            // Hidden field
+            const longDescriptionField = document.getElementById("LongDescription");
+
+            // Load existing value (Edit case)
+            if (longDescriptionField && longDescriptionField.value) {
+                quill.root.innerHTML = longDescriptionField.value;
+            }
+
+            // ==================== FORM SUBMIT ====================
+            const form = document.getElementById("courseForm");
+            const longField = document.getElementById("LongDescription");
+            
+            // console.log("Form:", form);
+            // console.log("Hidden Field:", longField);
+            // console.log("Quill:", quill);
+
+            // Load existing (Edit)
+            if (longField && longField.value) {
+                quill.root.innerHTML = longField.value;
+            }
+
+            // 🔹 Submit binding
+            if (form && longField) {
+                form.addEventListener("submit", function (e) {
+
+                    const html = quill.root.innerHTML;
+                    longField.value = html;                    
+                });
+            } 
+
+
+            // ==================== IMAGE UPLOAD ====================
+            const fileInput = document.getElementById("upload-file");
+            const imagePreview = document.getElementById("uploaded-img__preview");
+            const uploadedImgContainer = document.querySelector(".uploaded-img");
+            const removeButton = document.querySelector(".uploaded-img__remove");
+
+            if (fileInput) {
+                fileInput.addEventListener("change", (e) => {
+                    if (e.target.files.length) {
+                        const src = URL.createObjectURL(e.target.files[0]);
+                        imagePreview.src = src;
+                        uploadedImgContainer.classList.remove('d-none');
+                    }
+                });
+            }
+
+            if (removeButton) {
+                removeButton.addEventListener("click", () => {
+                    imagePreview.src = "";
+                    uploadedImgContainer.classList.add('d-none');
+                    fileInput.value = "";
+                });
+            }
+
+            // ==================== DYNAMIC FIELDS ====================
+            function addField(containerId, inputName, placeholder) {
+                const container = document.getElementById(containerId);
+
+                const div = document.createElement("div");
+                div.className = "input-group mb-2";
+
+                div.innerHTML = `
+                    <input type="text"
+                           name="${inputName}"
+                           class="form-control radius-8"
+                           placeholder="${placeholder}">
+                    <button type="button"
+                            class="btn btn-outline-danger remove-field">✖</button>
+                `;
+
+                container.appendChild(div);
+            }
+
+            document.getElementById("add-learn")
+                ?.addEventListener("click", () =>
+                    addField("learn-container", "CourseLearningOutcomes", "What you will learn"));
+
+            document.getElementById("add-requirement")
+                ?.addEventListener("click", () =>
+                    addField("requirement-container", "CourseRequirements", "Course requirement"));
+
+            document.getElementById("add-audience")
+                ?.addEventListener("click", () =>
+                    addField("audience-container", "CourseTargetAudiences", "Who is this course for?"));
+
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("remove-field")) {
+                    e.target.closest(".input-group").remove();
+                }
+            });
+
+            // ==================== FREE / PAID ====================
+            const freePaid = document.getElementById("CourseType");
+            const price = document.getElementById("Price");
+            const finalPrice = document.getElementById("FinalPrice");
+
+            function togglePriceFields() {
+                if (!freePaid) return;
+
+                if (freePaid.value === "Free") {
+                    price.value = 0;
+                    finalPrice.value = 0;
+                    price.readOnly = true;
+                    finalPrice.readOnly = true;
+                } else {
+                    price.readOnly = false;
+                    finalPrice.readOnly = false;
+                }
+            }
+
+            togglePriceFields();
+            freePaid?.addEventListener("change", togglePriceFields);
+
+
+            // =============================== Slug Start here ================================================
+
+            function generateSlug(text) {
+                return text
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^a-z0-9\s-]/g, '')   // remove special chars
+                    .replace(/\s+/g, '-')          // spaces → hyphen
+                    .replace(/-+/g, '-')           // multiple hyphens → single
+                    .replace(/^-+|-+$/g, '');      // trim hyphens
+            }
+
+            const titleInput = document.getElementById("Title");
+            const slugInput = document.getElementById("Slug");
+
+            let slugManuallyEdited = false;
+
+            // detect manual slug edit
+            slugInput.addEventListener("input", function () {
+                slugManuallyEdited = true;
+            });
+
+            titleInput.addEventListener("input", function () {
+                if (!slugManuallyEdited) {
+                    slugInput.value = generateSlug(this.value);
+                }
+            });
+
+            // =============================== Slug End here ================================================
+        });
+    </script>
+}

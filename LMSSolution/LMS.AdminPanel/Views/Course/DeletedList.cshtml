@@ -1,0 +1,79 @@
+﻿@model List<LMS.Domain.Entities.Course>
+
+@{
+    ViewData["title"] = "Deleted Course";
+    ViewData["subTitle"] = "Deleted Course List";
+}
+
+<div class="card basic-data-table">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Delete Course List</h5>
+    </div>
+    <div class="card-body">
+        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Thumbnail</th>
+                    <th scope="col">Course Type</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Publish Status</th>
+                    <th scope="col" class="text-center">Active Status</th>
+                    <th scope="col" class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a class="text-primary" href="#">@item.Title</a>
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/" + item.Thumbnail)" alt="Course" class="h-60-px flex-shrink-0 me-12 overflow-hidden">                            
+                        </td>
+                        <td>@item.CourseType</td>
+                        <td>
+                            <div>
+                                <strong>Original :</strong>
+                                ₹ <span class="text-danger">@item.Price</span>
+                            </div>
+                            <div>
+                                <strong>Discount :</strong>
+                                <strong><span>@item.DiscountPercentage %</span></strong>
+                            </div>
+                            <div>
+                                <strong>Final Price :</strong>
+                                ₹ <span class="text-success">@item.FinalPrice</span>
+                            </div>
+                        </td>
+                        <td>@item.CourseStatus</td>
+                        <td class="text-center"> <span class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Deactive</span> </td>
+                        <td class="text-end">
+                            <a asp-action="Restore"
+                               asp-controller="Course"
+                               asp-route-id="@item.Id"
+                               class="btn w-32-px h-32-px bg-warning-focus text-warning-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                <iconify-icon icon="mingcute:restore-line" class="fs-5"></iconify-icon>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        let table = new DataTable('#dataTable',{
+            ordering: true,
+            columnDefs: [
+                { orderable: true, targets: 0 },   // Title column
+                { orderable: false, targets: '_all' } // Disable all others
+            ]
+        });
+    </script>
+}
+

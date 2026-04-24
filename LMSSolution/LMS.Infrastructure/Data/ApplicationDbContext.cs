@@ -18,6 +18,16 @@ namespace LMS.Infrastructure.Data
         public DbSet<Category> Categories => Set<Category>();
 
 
+        public DbSet<Course> Courses => Set<Course>();
+        public DbSet<CourseModule> CourseModules => Set<CourseModule>();
+        public DbSet<CourseContent> CourseContents => Set<CourseContent>();
+        public DbSet<CourseCategory> CourseCategories => Set<CourseCategory>();
+        public DbSet<CourseLearningOutcome> CourseLearningOutcomes => Set<CourseLearningOutcome>();
+        public DbSet<CourseRequirement> CourseRequirements => Set<CourseRequirement>();
+        public DbSet<CourseTargetAudience> CourseTargetAudiences => Set<CourseTargetAudience>();
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
