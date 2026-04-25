@@ -1,5 +1,4 @@
 ﻿using LMS.Domain.Enums;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMS.AdminPanel.ViewModels.Course
@@ -59,13 +58,13 @@ namespace LMS.AdminPanel.ViewModels.Course
 
         // Multi Values
 
-        [MinLength(1,ErrorMessage = "At least one learning outcome is required")]
+        [MinLength(1, ErrorMessage = "At least one learning outcome is required")]
         public List<string> CourseLearningOutcomes { get; set; } = new();
 
-        [MinLength(1,ErrorMessage = "At least one requirement is required")]
+        [MinLength(1, ErrorMessage = "At least one requirement is required")]
         public List<string> CourseRequirements { get; set; } = new();
 
-        [MinLength(1,ErrorMessage = "At least one target audience is required")]
+        [MinLength(1, ErrorMessage = "At least one target audience is required")]
         public List<string> CourseTargetAudiences { get; set; } = new();
 
 

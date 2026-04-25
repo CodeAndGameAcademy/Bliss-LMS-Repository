@@ -1,9 +1,7 @@
 ﻿using LMS.AdminPanel.Common.Constants;
 using LMS.AdminPanel.Helpers;
 using LMS.AdminPanel.Services;
-using LMS.AdminPanel.ViewModels.Category;
 using LMS.AdminPanel.ViewModels.Course;
-using LMS.AdminPanel.ViewModels.Instructor;
 using LMS.Application.Exceptions;
 using LMS.Domain.Common;
 using LMS.Domain.Entities;
@@ -164,7 +162,7 @@ namespace LMS.AdminMVC.Controllers
                     CourseType = model.CourseType,
                     DifficultyLevel = model.DifficultyLevel,
                     CourseLanguageId = model.CourseLanguageId,
-                    CourseStatus = model.CourseStatus,                    
+                    CourseStatus = model.CourseStatus,
 
                     IsSequentialAccess = model.IsSequentialAccess ? true : false,
                     Thumbnail = imagePath
@@ -202,7 +200,7 @@ namespace LMS.AdminMVC.Controllers
                 ModelState.AddModelError("", ex.Message);
                 LoadDropdowns();
                 return View(model);
-            }            
+            }
         }
 
 
@@ -211,7 +209,7 @@ namespace LMS.AdminMVC.Controllers
         {
             try
             {
-                var entity = await _context.Courses                
+                var entity = await _context.Courses
                 .Include(x => x.CourseCategories).ThenInclude(x => x.Category)
                 .Include(x => x.CourseRequirements)
                 .Include(x => x.CourseTargetAudiences)
@@ -234,7 +232,7 @@ namespace LMS.AdminMVC.Controllers
                     Price = entity.Price,
                     FinalPrice = entity.FinalPrice,
                     CourseStatus = entity.CourseStatus,
-                    CategoryIds = entity.CourseCategories.Select(x=>x.CategoryId).ToList(),
+                    CategoryIds = entity.CourseCategories.Select(x => x.CategoryId).ToList(),
                     CourseLearningOutcomes = entity.CourseLearningOutcomes.Select(x => x.Value).ToList(),
                     CourseRequirements = entity.CourseRequirements.Select(x => x.Value).ToList(),
                     CourseTargetAudiences = entity.CourseTargetAudiences.Select(x => x.Value).ToList(),
@@ -338,7 +336,7 @@ namespace LMS.AdminMVC.Controllers
                 entity.DifficultyLevel = model.DifficultyLevel;
                 entity.CourseLanguageId = model.CourseLanguageId;
                 entity.CourseStatus = model.CourseStatus;
-                
+
                 entity.IsSequentialAccess = model.IsSequentialAccess;
 
                 ApplyPricing(entity, model.Price, model.FinalPrice);
@@ -467,9 +465,9 @@ namespace LMS.AdminMVC.Controllers
 
         private void ValidateCollection(CreateCourseViewModel model)
         {
-            model.CourseLearningOutcomes = CleanList(model.CourseLearningOutcomes,"CourseLearningOutcomes","At least one learning outcome is required");
-            model.CourseRequirements = CleanList(model.CourseRequirements,"CourseRequirements","At least one requirement is required");
-            model.CourseTargetAudiences = CleanList(model.CourseTargetAudiences,"CourseTargetAudiences","At least one target audience is required");        
+            model.CourseLearningOutcomes = CleanList(model.CourseLearningOutcomes, "CourseLearningOutcomes", "At least one learning outcome is required");
+            model.CourseRequirements = CleanList(model.CourseRequirements, "CourseRequirements", "At least one requirement is required");
+            model.CourseTargetAudiences = CleanList(model.CourseTargetAudiences, "CourseTargetAudiences", "At least one target audience is required");
         }
 
         private void ValidateCollection(UpdateCourseViewModel model)

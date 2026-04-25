@@ -1,0 +1,168 @@
+﻿@model LMS.AdminPanel.ViewModels.CourseModule.CourseModulePageViewModel
+
+@{
+    ViewData["title"] = "Course Module";
+    ViewData["subTitle"] = "Course Module";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+</div>
+
+<div class="row gy-4">
+    <div class="col-md-12">
+        <!-- ================= FILTER FORM ================= -->
+        <form method="get" asp-action="Index" class="mb-32">
+            <label class="form-label">Select Course</label>
+            <select class="form-select"
+                    name="courseId"
+                    onchange="this.form.submit()">
+
+                <option value="">-- Select Course --</option>
+
+                @foreach (var item in ViewBag.Courses)
+                {
+                    <option value="@item.Value"
+                            selected="@(item.Value == Model.CreateCourseModule.CourseId.ToString())">
+                        @item.Text
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="CreateCourseModule.CourseId" class="text-danger"></span>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- ================= CREATE FORM ================= -->
+<div class="row gy-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">Add New Course Module</h6>
+            </div>
+            <div class="card-body">
+
+                <form method="post" asp-action="Create">
+                    @Html.AntiForgeryToken()
+
+                    <div class="row gy-3">
+
+                        <!-- Hidden CourseId from Filter -->
+                        <input type="hidden" asp-for="CreateCourseModule.CourseId" />
+
+                        <div class="col-md-10">
+                            <label class="form-label">Module Title</label>
+                            <input type="text" asp-for="CreateCourseModule.Title" class="form-control">
+                            <span asp-validation-for="CreateCourseModule.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Order Index</label>
+                            <input type="number" asp-for="CreateCourseModule.OrderIndex" class="form-control">
+                            <span asp-validation-for="CreateCourseModule.OrderIndex" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary-600">
+                                Create Course Module
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODULE LIST ================= -->
+<div class="row gy-4 mt-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Course Module List</h5>
+            </div>
+            <div class="card-body">
+
+                @if (!Model.CourseModules.Any())
+                {
+                    <div class="text-center text-muted py-3">
+                        No modules found. Please select a course.
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table bordered-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Module Title</th>
+                                    <th>Order Index</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CourseModules)
+                                {
+                                    <tr>
+                                        <td>@item.Title</td>
+                                        <td>@item.OrderIndex</td>
+                                        <td class="text-center">
+                                            @if (item.DeletedAt == null)
+                                            {
+                                                <span class="bg-success-focus text-success-main px-3 py-1 rounded-pill">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="bg-danger-focus text-danger-main px-3 py-1 rounded-pill">Inactive</span>
+                                            }
+                                        </td>
+                                        <td class="text-end">
+                                            <a asp-action="Edit"
+                                               asp-controller="CourseModule"
+                                               asp-route-id="@item.Id"
+                                               asp-route-courseId="@item.CourseId"
+                                               class="btn btn-sm btn-warning">
+                                                Edit
+                                            </a>
+
+                                            @if (item.DeletedAt == null)
+                                            {
+                                                <form method="post" asp-action="Delete" style="display:inline;">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <input type="hidden" name="courseId" value="@item.CourseId" />
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form method="post" asp-action="Restore" style="display:inline;">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <input type="hidden" name="courseId" value="@item.CourseId" />
+                                                    <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
