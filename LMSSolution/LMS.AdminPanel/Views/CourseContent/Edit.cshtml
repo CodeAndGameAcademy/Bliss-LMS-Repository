@@ -1,0 +1,130 @@
+﻿@model LMS.AdminPanel.ViewModels.CourseContent.UpdateCourseContentViewModel
+
+@{
+    ViewData["title"] = "Edit Course Content";
+    ViewData["subTitle"] = "Edit Course Content";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+</div>
+
+<!-- ================= CREATE FORM ================= -->
+<div class="row gy-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">Add New Course Content</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit"
+                      asp-controller="CourseContent"
+                      asp-route-id="@ViewBag.CourseContentId"
+                      method="post" enctype="multipart/form-data">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="CourseId" />
+                    <input type="hidden" asp-for="CourseModuleId" />
+
+                    <div class="row gy-3">
+                   
+                    <div class="col-md-10">
+                        <label class="form-label">Content Title <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="Title" class="form-control">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Order Index<span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="OrderIndex" class="form-control">
+                            <span asp-validation-for="OrderIndex" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Content Type <span class="text-danger-600">*</span></label>
+                        <select class="form-select" id="contentType" asp-for="CourseContentType" asp-items="@ViewBag.CourseContentTypes">
+                        </select>
+                    </div>
+
+                    <div class="col-md-8"></div>
+
+                    <div class="col-12" id="videoField">
+                        <label class="form-label">Youtube Video URL<span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="YoutubeVideoURL" class="form-control">
+                            <span asp-validation-for="YoutubeVideoURL" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 d-none" id="pdfField">
+                        <label class="form-label">Upload PDF File<span class="text-danger-600">*</span></label>
+                        <input type="file" name="ContentFile" class="form-control form-control-lg">
+                            <span asp-validation-for="ContentFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Content Length in Minutes<span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="ContentLengthInMinutes" class="form-control">
+                            <span asp-validation-for="ContentLengthInMinutes" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-switch switch-success d-flex align-items-center gap-3 mt-8">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switch3" asp-for="IsFreePreview">
+                            <label class="form-check-label line-height-1 fw-medium text-secondary-light" for="switch3">Is Free Preview?</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary-600">
+                            Update Course Content
+                        </button>
+                        <a asp-action="Index" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div><!-- card end -->
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const contentType = document.getElementById("contentType");
+            const videoField = document.getElementById("videoField");
+            const pdfField = document.getElementById("pdfField");
+
+            if (!contentType) {
+                console.error("contentType not found");
+                return;
+            }
+
+            function toggleFields() {
+                console.log("Selected:", contentType.value);
+
+                if (contentType.value === "Video") {
+                    videoField.classList.remove("d-none");
+                    pdfField.classList.add("d-none");
+                } else if (contentType.value === "Pdf") {
+                    videoField.classList.add("d-none");
+                    pdfField.classList.remove("d-none");
+                }
+            }
+
+            // Initial load fix
+            toggleFields();
+
+            // Change event
+            contentType.addEventListener("change", toggleFields);
+
+        });
+    </script>
+}

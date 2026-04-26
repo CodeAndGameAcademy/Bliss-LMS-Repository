@@ -1,0 +1,274 @@
+﻿@model LMS.AdminPanel.ViewModels.CourseContent.CourseContentPageViewModel
+
+@{
+    ViewData["title"] = "Course Content";
+    ViewData["subTitle"] = "Course Content";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+</div>
+
+<div class="row gy-4">
+    <!-- ================= FILTER FORM ================= -->
+    <form method="get" asp-action="Index">
+        <div class="col-md-12">
+            <label class="form-label">Select Course <span class="text-danger-600">*</span></label>
+            <select class="form-select"
+                    name="courseId"
+                    onchange="this.form.submit()">
+
+                <option value="">-- Select Course --</option>
+
+                @foreach (var item in ViewBag.Courses)
+                {
+                    <option value="@item.Value"
+                            selected="@(item.Value == Model.CreateCourseContent.CourseId.ToString())">
+                        @item.Text
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="CreateCourseContent.CourseId" class="text-danger"></span>        
+        </div>
+
+        <div class="col-md-12">
+            <label class="form-label">Select Module <span class="text-danger-600">*</span></label>
+            <select class="form-select"
+                    name="courseModuleId"
+                    onchange="this.form.submit()">
+
+                <option value="">-- Select Module --</option>
+
+                @foreach (var item in ViewBag.CourseModules)
+                {
+                    <option value="@item.Value"
+                            selected="@(item.Value == Model.CreateCourseContent.CourseModuleId.ToString())">
+                        @item.Text
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="CreateCourseContent.CourseModuleId" class="text-danger"></span>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- ================= CREATE FORM ================= -->
+<div class="row gy-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">Add New Course Content</h6>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Create" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="CreateCourseContent.CourseId" />
+                    <input type="hidden" asp-for="CreateCourseContent.CourseModuleId" />
+
+                    <div class="row gy-3">
+                   
+                    <div class="col-md-10">
+                        <label class="form-label">Content Title <span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="CreateCourseContent.Title" class="form-control">
+                        <span asp-validation-for="CreateCourseContent.Title" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Order Index<span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="CreateCourseContent.OrderIndex" class="form-control">
+                            <span asp-validation-for="CreateCourseContent.OrderIndex" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Content Type <span class="text-danger-600">*</span></label>
+                        <select class="form-select" asp-for="CreateCourseContent.CourseContentType" id="contentType" asp-items="@ViewBag.CourseContentTypes">
+                        </select>
+                    </div>
+
+                    <div class="col-md-8"></div>
+
+                    <div class="col-12" id="videoField">
+                        <label class="form-label">Youtube Video URL<span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="CreateCourseContent.YoutubeVideoURL" class="form-control">
+                            <span asp-validation-for="CreateCourseContent.YoutubeVideoURL" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 d-none" id="pdfField">
+                        <label class="form-label">Upload PDF File<span class="text-danger-600">*</span></label>
+                            <input type="file" name="CreateCourseContent.ContentFile" class="form-control form-control-lg">
+                            <span asp-validation-for="CreateCourseContent.ContentFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Content Length in Minutes<span class="text-danger-600">*</span></label>
+                        <input type="text" asp-for="CreateCourseContent.ContentLengthInMinutes" class="form-control">
+                            <span asp-validation-for="CreateCourseContent.ContentLengthInMinutes" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-switch switch-success d-flex align-items-center gap-3 mt-8">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switch3" asp-for="CreateCourseContent.IsFreePreview">
+                            <label class="form-check-label line-height-1 fw-medium text-secondary-light" for="switch3">Is Free Preview?</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary-600">Create Course Content</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div><!-- card end -->
+    </div>
+
+</div>
+
+<div class="row gy-4 mt-4">
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Course Content List</h5>
+            </div>
+            <div class="card-body">
+
+                @if (!Model.CourseContents.Any())
+                {
+                    <div class="text-center text-muted py-3">
+                        No Content found. Please select a course and module.
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table bordered-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Content Title</th>
+                                    <th scope="col">Free Preview</th>
+                                    <th scope="col">Content Length</th>
+                                    <th scope="col">Order Index</th>
+                                    <th scope="col" class="text-center">Active Status</th>
+                                    <th scope="col" class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CourseContents)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                @if(item.CourseContentType == LMS.Domain.Enums.CourseContentType.Video)
+                                                {
+                                                    <iconify-icon icon="hugeicons:video-01" class="menu-icon text-primary"></iconify-icon>
+                                                    <span>
+                                                        <a class="text-primary" href="@item.YoutubeVideoURL" target="_blank">@item.Title</a>
+                                                    </span>
+                                                }
+                                                else if (item.CourseContentType == LMS.Domain.Enums.CourseContentType.Pdf)
+                                                {
+                                                    <iconify-icon icon="hugeicons:document-attachment" class="menu-icon text-danger"></iconify-icon>
+                                                    <span>
+                                                        <a class="text-primary" href="~/@item.ContentFile" target="_blank">@item.Title</a>
+                                                    </span>
+                                                }                                                
+                                            </div>
+                                        </td>
+                                        <td>@item.IsFreePreview</td>
+                                        <td>@item.ContentLengthInMinutes</td>
+                                        <td>@item.OrderIndex</td>
+                                        <td class="text-center">
+                                            @if (item.DeletedAt == null)
+                                            {
+                                                <span class="bg-success-focus text-success-main px-3 py-1 rounded-pill">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="bg-danger-focus text-danger-main px-3 py-1 rounded-pill">Inactive</span>
+                                            }
+                                        </td>
+                                        <td class="text-end">
+                                            <a asp-action="Edit"
+                                               asp-controller="CourseContent"
+                                               asp-route-id="@item.Id" 
+                                               asp-route-courseId="@Model.CreateCourseContent.CourseId"
+                                               asp-route-courseModuleId="@Model.CreateCourseContent.CourseModuleId"
+                                               class="btn btn-sm btn-warning">
+                                                Edit
+                                            </a>
+
+                                            @if (item.DeletedAt == null)
+                                            {
+                                                <form method="post" asp-action="Delete" style="display:inline;">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <input type="hidden" name="courseId" value="@Model.CreateCourseContent.CourseId" />
+                                                    <input type="hidden" name="courseModuleId" value="@Model.CreateCourseContent.CourseModuleId" />
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form method="post" asp-action="Restore" style="display:inline;">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <input type="hidden" name="courseId" value="@Model.CreateCourseContent.CourseId" />
+                                                    <input type="hidden" name="courseModuleId" value="@Model.CreateCourseContent.CourseModuleId" />
+                                                    <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }                                
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div><!-- card end -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const contentType = document.getElementById("contentType");
+            const videoField = document.getElementById("videoField");
+            const pdfField = document.getElementById("pdfField");
+
+            if (!contentType) {
+                console.error("contentType not found");
+                return;
+            }
+
+            function toggleFields() {
+                console.log("Selected:", contentType.value);
+
+                if (contentType.value === "Video") {
+                    videoField.classList.remove("d-none");
+                    pdfField.classList.add("d-none");
+                } else if (contentType.value === "Pdf") {
+                    videoField.classList.add("d-none");
+                    pdfField.classList.remove("d-none");
+                }
+            }
+
+            // Initial load fix
+            toggleFields();
+
+            // Change event
+            contentType.addEventListener("change", toggleFields);
+
+        });
+    </script>
+}

@@ -80,7 +80,7 @@ namespace LMS.AdminPanel.Controllers
                     throw new BadRequestException("OrderIndex already exists.");
 
 
-                
+
 
                 var module = new CourseModule
                 {
@@ -96,7 +96,7 @@ namespace LMS.AdminPanel.Controllers
                 // Redirect with selected course
                 return RedirectToAction("Index", new { courseId = model.CreateCourseModule.CourseId });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
 
@@ -128,9 +128,9 @@ namespace LMS.AdminPanel.Controllers
 
                 return RedirectToAction("Index", new { courseId });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;                
+                TempData["Error"] = ex.Message;
                 // Redirect with selected course
                 return RedirectToAction("Index", new { courseId = courseId });
             }
@@ -156,12 +156,12 @@ namespace LMS.AdminPanel.Controllers
 
                 return RedirectToAction("Index", new { courseId });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
                 // Redirect with selected course
                 return RedirectToAction("Index", new { courseId = courseId });
-            }            
+            }
         }
 
         [HttpGet]
@@ -169,7 +169,7 @@ namespace LMS.AdminPanel.Controllers
         {
             try
             {
-                var entity = await _context.CourseModules                    
+                var entity = await _context.CourseModules
                     .FirstOrDefaultAsync(x => x.Id == id);
 
                 if (entity == null)
@@ -186,7 +186,7 @@ namespace LMS.AdminPanel.Controllers
 
                 return View(model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
                 // Redirect with selected course
@@ -196,7 +196,7 @@ namespace LMS.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id,UpdateCourseModuleViewModel model)
+        public async Task<IActionResult> Edit(Guid id, UpdateCourseModuleViewModel model)
         {
             try
             {
@@ -238,7 +238,7 @@ namespace LMS.AdminPanel.Controllers
             {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction("Index", new { courseId = model.CourseId });
-            }            
+            }
         }
     }
 }
