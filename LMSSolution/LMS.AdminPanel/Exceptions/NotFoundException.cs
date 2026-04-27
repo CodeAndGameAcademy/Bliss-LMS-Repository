@@ -1,4 +1,4 @@
-﻿namespace LMS.Application.Exceptions
+﻿namespace LMS.AdminPanel.Exceptions
 {
     public class NotFoundException : AppException
     {

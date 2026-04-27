@@ -2,7 +2,7 @@
 using LMS.AdminPanel.Helpers;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.Course;
-using LMS.Application.Exceptions;
+using LMS.AdminPanel.Exceptions;
 using LMS.Domain.Common;
 using LMS.Domain.Entities;
 using LMS.Domain.Enums;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
-namespace LMS.AdminMVC.Controllers
+namespace LMS.AdminPanel.Controllers
 {
     public class CourseController : Controller
     {

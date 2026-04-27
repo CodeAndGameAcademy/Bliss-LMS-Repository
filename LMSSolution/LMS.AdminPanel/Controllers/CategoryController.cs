@@ -1,15 +1,15 @@
 ﻿using LMS.AdminPanel.Common.Constants;
+using LMS.AdminPanel.Exceptions;
 using LMS.AdminPanel.Helpers;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.Category;
-using LMS.Application.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMS.AdminMVC.Controllers
+namespace LMS.AdminPanel.Controllers
 {
     public class CategoryController : Controller
     {

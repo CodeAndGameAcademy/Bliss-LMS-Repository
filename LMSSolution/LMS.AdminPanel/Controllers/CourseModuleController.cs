@@ -1,5 +1,5 @@
 ﻿using LMS.AdminPanel.ViewModels.CourseModule;
-using LMS.Application.Exceptions;
+using LMS.AdminPanel.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;

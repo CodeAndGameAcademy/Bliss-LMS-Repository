@@ -1,7 +1,7 @@
 ﻿using LMS.AdminPanel.Common.Constants;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.Instructor;
-using LMS.Application.Exceptions;
+using LMS.AdminPanel.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;

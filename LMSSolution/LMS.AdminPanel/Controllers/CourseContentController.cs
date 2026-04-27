@@ -1,15 +1,13 @@
 ﻿using LMS.AdminPanel.Common.Constants;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.CourseContent;
-using LMS.AdminPanel.ViewModels.CourseModule;
-using LMS.Application.Exceptions;
+using LMS.AdminPanel.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Domain.Enums;
 using LMS.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace LMS.AdminPanel.Controllers
 {
@@ -60,7 +58,7 @@ namespace LMS.AdminPanel.Controllers
                         Text = x.Title
                     }).ToList();
 
-                model.CreateCourseContent.CourseId = courseId.Value;                
+                model.CreateCourseContent.CourseId = courseId.Value;
             }
 
 
@@ -71,7 +69,7 @@ namespace LMS.AdminPanel.Controllers
                     .Where(x => x.CourseModuleId == courseModuleId)
                     .OrderBy(x => x.OrderIndex)
                     .ToList();
-                
+
                 model.CreateCourseContent.CourseModuleId = courseModuleId.Value;
             }
 
@@ -95,7 +93,7 @@ namespace LMS.AdminPanel.Controllers
                         Text = x.Title
                     }).ToList();
 
-                if(model.CreateCourseContent.CourseId != Guid.Empty)
+                if (model.CreateCourseContent.CourseId != Guid.Empty)
                 {
                     ViewBag.CourseModules = _context.CourseModules
                        .IgnoreQueryFilters()
@@ -120,7 +118,7 @@ namespace LMS.AdminPanel.Controllers
                         Text = x.ToString()
                     }).ToList();
 
-                
+
 
                 if (model.CreateCourseContent.CourseId == Guid.Empty)
                 {

@@ -1,4 +1,4 @@
-﻿namespace LMS.Application.Exceptions
+﻿namespace LMS.StudentAPI.Exceptions
 {
     public abstract class AppException : Exception
     {

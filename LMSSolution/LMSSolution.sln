@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Domain", "LMS.Domain\LM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Infrastructure", "LMS.Infrastructure\LMS.Infrastructure.csproj", "{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Application", "LMS.Application\LMS.Application.csproj", "{F1595D1E-D9FD-4C66-8CE7-23FD4E284152}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.StudentAPI", "LMS.StudentAPI\LMS.StudentAPI.csproj", "{F90BE220-91DD-4E24-ADDC-32B5634B18DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A69FC1C8-A517-4297-99D6-14CAF3AA4A43}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1595D1E-D9FD-4C66-8CE7-23FD4E284152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1595D1E-D9FD-4C66-8CE7-23FD4E284152}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1595D1E-D9FD-4C66-8CE7-23FD4E284152}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1595D1E-D9FD-4C66-8CE7-23FD4E284152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F90BE220-91DD-4E24-ADDC-32B5634B18DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90BE220-91DD-4E24-ADDC-32B5634B18DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90BE220-91DD-4E24-ADDC-32B5634B18DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90BE220-91DD-4E24-ADDC-32B5634B18DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
