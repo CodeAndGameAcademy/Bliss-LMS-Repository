@@ -1,5 +1,7 @@
 ﻿using LMS.Infrastructure.Data;
+using LMS.StudentAPI.Interfaces;
 using LMS.StudentAPI.Middlewares;
+using LMS.StudentAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -88,6 +90,8 @@ namespace LMS.StudentAPI
             });
 
             // Register Custom Services
+            builder.Services.AddScoped<IPasswordService, PasswordService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
 
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

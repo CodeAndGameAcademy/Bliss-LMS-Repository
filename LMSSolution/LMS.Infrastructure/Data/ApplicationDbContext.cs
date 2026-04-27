@@ -12,6 +12,7 @@ namespace LMS.Infrastructure.Data
 
         // DbSets
         public DbSet<User> Users => Set<User>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
         public DbSet<Slider> Sliders => Set<Slider>();
         public DbSet<Instructor> Instructors => Set<Instructor>();
         public DbSet<CourseLanguage> CourseLanguages => Set<CourseLanguage>();

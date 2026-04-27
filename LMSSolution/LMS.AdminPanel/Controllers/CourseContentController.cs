@@ -1,7 +1,7 @@
 ﻿using LMS.AdminPanel.Common.Constants;
+using LMS.AdminPanel.Exceptions;
 using LMS.AdminPanel.Services;
 using LMS.AdminPanel.ViewModels.CourseContent;
-using LMS.AdminPanel.Exceptions;
 using LMS.Domain.Entities;
 using LMS.Domain.Enums;
 using LMS.Infrastructure.Data;
