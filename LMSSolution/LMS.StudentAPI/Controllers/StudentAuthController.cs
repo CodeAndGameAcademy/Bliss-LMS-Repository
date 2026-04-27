@@ -73,17 +73,17 @@ namespace LMS.StudentAPI.Controllers
             // Device Restriction
             if (!string.IsNullOrEmpty(user.PrimaryDeviceId) && user.PrimaryDeviceId != request.DeviceId)
             {
-                if(string.IsNullOrEmpty(user.SecondaryDeviceId))
+                if (string.IsNullOrEmpty(user.SecondaryDeviceId))
                 {
                     user.SecondaryDeviceId = request.DeviceId;
                     user.SecondaryDeviceInfo = request.DeviceInfo;
 
                     await _context.SaveChangesAsync();
                 }
-                else if(user.SecondaryDeviceId != request.DeviceId)
-                { 
+                else if (user.SecondaryDeviceId != request.DeviceId)
+                {
                     return Unauthorized("Device limit exceeded. Only 2 devices allowed.");
-                }                
+                }
             }
 
             var accessToken = _jwtService.GenerateAccessToken(user);

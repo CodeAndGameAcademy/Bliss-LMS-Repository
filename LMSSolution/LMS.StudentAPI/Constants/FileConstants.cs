@@ -3,8 +3,8 @@
     public static class FileConstants
     {
         public static class Defaults
-        {            
-            public const string UserImage = "uploads/default/user.png";         
+        {
+            public const string UserImage = "uploads/default/user.png";
         }
 
         public static class Image

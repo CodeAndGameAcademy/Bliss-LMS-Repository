@@ -1,0 +1,100 @@
+﻿@model List<LMS.Domain.Entities.User>
+
+@{
+    ViewData["title"] = "Student";
+    ViewData["subTitle"] = "Student List";
+}
+
+<div class="row gy-4">
+
+    <div class="col-lg-12">
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger bg-danger-100 text-danger-600 border-danger-100 px-24 py-11 mb-16 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                @TempData["Error"]
+            </div>
+        }
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Student List</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table bordered-table mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Primary Device</th>
+                                <th scope="col">Secondary Device</th>
+                                <th scope="col" class="text-center">Active Status</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="@Url.Content("~/" + item.Image)" alt="Category" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
+                                            <h6 class="text-md mb-0 fw-medium flex-grow-1">@item.FullName</h6>
+                                        </div>
+                                    </td>
+                                    <td>@item.MobileNumber</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.PrimaryDeviceId<br/>@item.PrimaryDeviceInfo</td>
+                                    <td>@item.SecondaryDeviceId<br />@item.SecondaryDeviceInfo</td>
+                                    <td class="text-center"> 
+                                        @if(item.IsActive)
+                                        {
+                                            <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Inactive</span>
+                                        }                                        
+                                        </td>
+                                    <td class="text-end">
+
+                                        @if (item.DeletedAt == null)
+                                        {
+                                            <form asp-action="SoftDelete" asp-controller="Student" method="post" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+
+                                                <input type="hidden" name="id" value="@item.Id" />
+
+                                                <button type="submit"
+                                                        class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center border-0"
+                                                        onclick="return confirm('Are you sure you want to deactive this student?');">
+
+                                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Restore"
+                                               asp-controller="Student"
+                                               asp-route-id="@item.Id"
+                                               class="btn w-32-px h-32-px bg-warning-focus text-warning-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <iconify-icon icon="mingcute:restore-line" class="fs-5"></iconify-icon>
+                                            </a>
+                                        }
+
+                                        
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- card end -->
+    </div>
+</div>
