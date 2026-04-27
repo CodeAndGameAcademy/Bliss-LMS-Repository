@@ -56,21 +56,12 @@ namespace LMS.StudentAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.MobileNumber == request.MobileNumber && x.Role == Role.STUDENT);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.MobileNumber == request.MobileNumber && x.Role == Role.STUDENT && x.IsActive == true);
 
             if (user == null || !_passwordService.VerifyPassword(request.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials");
+                return Unauthorized("Invalid credentials or Inactive");
 
-            // Device Restriction
-            //if (!string.IsNullOrEmpty(user.PrimaryDeviceId) && user.PrimaryDeviceId != request.DeviceId)
-            //{
-            //    if (!string.IsNullOrEmpty(user.SecondaryDeviceId) && user.SecondaryDeviceId != request.DeviceId)
-            //    {
-            //        return Unauthorized("Device limit exceeded. Only 2 devices allowed.");
-            //    }
-            //}
-
-            // Device Restriction
+            // Device Checking
             if (!string.IsNullOrEmpty(user.PrimaryDeviceId) && user.PrimaryDeviceId != request.DeviceId)
             {
                 if (string.IsNullOrEmpty(user.SecondaryDeviceId))

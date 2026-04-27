@@ -42,7 +42,7 @@ namespace LMS.AdminPanel.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;                
+                TempData["Error"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -68,7 +68,7 @@ namespace LMS.AdminPanel.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;                
+                TempData["Error"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }

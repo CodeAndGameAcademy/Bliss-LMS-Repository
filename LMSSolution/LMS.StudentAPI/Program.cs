@@ -92,6 +92,8 @@ namespace LMS.StudentAPI
             // Register Custom Services
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<ISliderService, SliderService>();
+
 
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
