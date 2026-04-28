@@ -109,40 +109,48 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <label class="form-label">Instructor <span class="text-danger-600">*</span></label>
+                        <select class="form-select" asp-for="InstructorId" asp-items="ViewBag.Instructors">
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
                         <label class="form-label">Course Language <span class="text-danger-600">*</span></label>
                             <select class="form-select" asp-for="CourseLanguageId" asp-items="ViewBag.CourseLanguages">
                             </select>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label">Difficulty Level <span class="text-danger-600">*</span></label>
                             <select class="form-select" asp-for="DifficultyLevel" asp-items="ViewBag.DifficultyLevels">
                             </select>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <label class="form-label">Course Status <span class="text-danger-600">*</span></label>
+                        <select class="form-select" asp-for="CourseStatus" asp-items="ViewBag.CourseStatuses">
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
                         <label class="form-label">Free/Paid <span class="text-danger-600">*</span></label>
                             <select class="form-select" id="CourseType" asp-for="CourseType" asp-items="ViewBag.CourseTypes">                            
                         </select>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label">Price <span class="text-danger-600">*</span></label>
                         <input type="text" asp-for="Price" id="Price" class="form-control">
                             <span asp-validation-for="Price" class="text-danger d-block"></span>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label">Final Price <span class="text-danger-600">*</span></label>
                         <input type="text" asp-for="FinalPrice" id="FinalPrice" class="form-control">
                             <span asp-validation-for="FinalPrice" class="text-danger d-block"></span>
                     </div>
 
-                    <div class="col-md-2">
-                        <label class="form-label">Course Status <span class="text-danger-600">*</span></label>
-                            <select class="form-select" asp-for="CourseStatus" asp-items="ViewBag.CourseStatuses">
-                            </select>
-                    </div>
+                    
 
                     <div class="col-12">
                         <label class="form-label">Categories <span class="text-danger-600">*</span></label>

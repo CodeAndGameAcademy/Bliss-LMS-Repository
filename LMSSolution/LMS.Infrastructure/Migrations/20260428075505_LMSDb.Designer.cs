@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260423074820_Course_CourseModule_CourseContent")]
-    partial class Course_CourseModule_CourseContent
+    [Migration("20260428075505_LMSDb")]
+    partial class LMSDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,9 @@ namespace LMS.Infrastructure.Migrations
                     b.Property<decimal>("FinalPrice")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<Guid>("InstructorId")
+                        .HasColumnType("char(36)");
+
                     b.Property<bool>("IsSequentialAccess")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
@@ -164,6 +167,8 @@ namespace LMS.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourseLanguageId");
+
+                    b.HasIndex("InstructorId");
 
                     b.HasIndex("Slug")
                         .IsUnique();
@@ -444,6 +449,33 @@ namespace LMS.Infrastructure.Migrations
                     b.ToTable("Instructors", (string)null);
                 });
 
+            modelBuilder.Entity("LMS.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("LMS.Domain.Entities.Slider", b =>
                 {
                     b.Property<Guid>("Id")
@@ -580,7 +612,15 @@ namespace LMS.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("LMS.Domain.Entities.Instructor", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("CourseLanguage");
+
+                    b.Navigation("Instructor");
                 });
 
             modelBuilder.Entity("LMS.Domain.Entities.CourseCategory", b =>
@@ -657,6 +697,17 @@ namespace LMS.Infrastructure.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("LMS.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("LMS.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LMS.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Children");
@@ -680,6 +731,11 @@ namespace LMS.Infrastructure.Migrations
             modelBuilder.Entity("LMS.Domain.Entities.CourseModule", b =>
                 {
                     b.Navigation("CourseContents");
+                });
+
+            modelBuilder.Entity("LMS.Domain.Entities.Instructor", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

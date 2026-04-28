@@ -116,6 +116,9 @@ namespace LMS.Infrastructure.Migrations
                     b.Property<decimal>("FinalPrice")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<Guid>("InstructorId")
+                        .HasColumnType("char(36)");
+
                     b.Property<bool>("IsSequentialAccess")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
@@ -161,6 +164,8 @@ namespace LMS.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourseLanguageId");
+
+                    b.HasIndex("InstructorId");
 
                     b.HasIndex("Slug")
                         .IsUnique();
@@ -604,7 +609,15 @@ namespace LMS.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("LMS.Domain.Entities.Instructor", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("CourseLanguage");
+
+                    b.Navigation("Instructor");
                 });
 
             modelBuilder.Entity("LMS.Domain.Entities.CourseCategory", b =>
@@ -715,6 +728,11 @@ namespace LMS.Infrastructure.Migrations
             modelBuilder.Entity("LMS.Domain.Entities.CourseModule", b =>
                 {
                     b.Navigation("CourseContents");
+                });
+
+            modelBuilder.Entity("LMS.Domain.Entities.Instructor", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

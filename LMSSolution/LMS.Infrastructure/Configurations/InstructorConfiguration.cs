@@ -40,6 +40,11 @@ namespace LMS.Infrastructure.Configurations
             // Soft Delete
             builder.HasQueryFilter(x => x.DeletedAt == null);
 
+            builder.HasMany(x => x.Courses)
+                .WithOne(x => x.Instructor)
+                .HasForeignKey(x => x.InstructorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Index (Optional but recommended)
             builder.HasIndex(x => x.Name);
             builder.HasIndex(x => x.DisplayName).IsUnique();

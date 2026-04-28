@@ -49,6 +49,9 @@ namespace LMS.AdminPanel.ViewModels.Course
         [Required(ErrorMessage = "Course language is required")]
         public Guid CourseLanguageId { get; set; }
 
+        [Required(ErrorMessage = "Instructor is required")]
+        public Guid InstructorId { get; set; }
+
         [Required(ErrorMessage = "Course status is required")]
         public CourseStatus CourseStatus { get; set; }
 

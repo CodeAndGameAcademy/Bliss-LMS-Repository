@@ -159,6 +159,7 @@ namespace LMS.AdminPanel.Controllers
                     ShortDescription = model.ShortDescription,
                     LongDescription = model.LongDescription,
 
+                    InstructorId = model.InstructorId,
                     CourseType = model.CourseType,
                     DifficultyLevel = model.DifficultyLevel,
                     CourseLanguageId = model.CourseLanguageId,
@@ -227,6 +228,7 @@ namespace LMS.AdminPanel.Controllers
                     ShortDescription = entity.ShortDescription,
                     LongDescription = entity.LongDescription,
                     CourseLanguageId = entity.CourseLanguageId,
+                    InstructorId = entity.InstructorId,
                     DifficultyLevel = entity.DifficultyLevel,
                     CourseType = entity.CourseType,
                     Price = entity.Price,
@@ -252,6 +254,7 @@ namespace LMS.AdminPanel.Controllers
             }
             catch (Exception ex)
             {
+                TempData["Error"] = "Something went wrong while loading Course. - " + ex.Message;
                 ModelState.AddModelError("", "Something went wrong while loading Course. - " + ex.Message);
                 return RedirectToAction(nameof(Index));
             }
@@ -335,6 +338,7 @@ namespace LMS.AdminPanel.Controllers
                 entity.CourseType = model.CourseType;
                 entity.DifficultyLevel = model.DifficultyLevel;
                 entity.CourseLanguageId = model.CourseLanguageId;
+                entity.InstructorId = model.InstructorId;
                 entity.CourseStatus = model.CourseStatus;
 
                 entity.IsSequentialAccess = model.IsSequentialAccess;
@@ -407,6 +411,13 @@ namespace LMS.AdminPanel.Controllers
                 {
                     Value = x.Id.ToString(),
                     Text = x.CourseLanguageName
+                }).ToList();
+
+            ViewBag.Instructors = _context.Instructors
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.DisplayName
                 }).ToList();
 
             ViewBag.CourseStatuses = Enum.GetValues(typeof(CourseStatus))

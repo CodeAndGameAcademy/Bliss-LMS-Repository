@@ -31,12 +31,15 @@ namespace LMS.Domain.Entities
         public Guid CourseLanguageId { get; set; }
         public CourseLanguage CourseLanguage { get; set; } = null!;
 
+        public Guid InstructorId { get; set; }
+        public Instructor Instructor { get; set; } = null!;
+
         public CourseStatus CourseStatus { get; set; }
 
         public bool IsSequentialAccess { get; set; } = true;
 
 
-        // Navigation Properties
+        // Navigation Properties        
         public ICollection<CourseLearningOutcome> CourseLearningOutcomes { get; set; } = new List<CourseLearningOutcome>();
         public ICollection<CourseRequirement> CourseRequirements { get; set; } = new List<CourseRequirement>();
         public ICollection<CourseTargetAudience> CourseTargetAudiences { get; set; } = new List<CourseTargetAudience>();
