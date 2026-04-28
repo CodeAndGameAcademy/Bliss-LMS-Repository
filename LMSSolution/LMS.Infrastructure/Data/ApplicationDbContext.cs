@@ -17,7 +17,7 @@ namespace LMS.Infrastructure.Data
         public DbSet<Instructor> Instructors => Set<Instructor>();
         public DbSet<CourseLanguage> CourseLanguages => Set<CourseLanguage>();
         public DbSet<Category> Categories => Set<Category>();
-
+        public DbSet<Wishlist> Wishlists => Set<Wishlist>();
 
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<CourseModule> CourseModules => Set<CourseModule>();
