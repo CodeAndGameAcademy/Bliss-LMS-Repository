@@ -94,6 +94,7 @@ namespace LMS.StudentAPI
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.AddScoped<ISliderService, SliderService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
 
 
             // JWT Authentication

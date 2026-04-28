@@ -5,6 +5,6 @@ namespace LMS.StudentAPI.Interfaces
     public interface ICategoryService
     {
         Task<List<CategoryDto>> GetAllCategoriesAsync();
-        Task<List<CategoryDto>> GetAllSubCategoriesAsync(Guid ParentId);       
+        Task<List<CategoryDto>> GetAllSubCategoriesAsync(Guid ParentId);
     }
 }
