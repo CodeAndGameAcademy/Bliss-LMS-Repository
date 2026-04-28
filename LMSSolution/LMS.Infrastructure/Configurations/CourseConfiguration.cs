@@ -50,7 +50,7 @@ namespace LMS.Infrastructure.Configurations
                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.Instructor)
-               .WithMany(c => c.Courses)
+               .WithMany()
                .HasForeignKey(c => c.InstructorId)
                .OnDelete(DeleteBehavior.Restrict);
 

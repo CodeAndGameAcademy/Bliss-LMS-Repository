@@ -1,4 +1,5 @@
-﻿using LMS.Domain.Enums;
+﻿using LMS.Domain.Entities;
+using LMS.Domain.Enums;
 using LMS.StudentAPI.DTOs.CourseModule;
 
 namespace LMS.StudentAPI.DTOs.Course
@@ -21,5 +22,7 @@ namespace LMS.StudentAPI.DTOs.Course
         public List<string> CourseRequirements { get; set; } = new();
         public List<string> CourseTargetAudiences { get; set; } = new();
         public List<CourseModuleDto> Modules { get; set; } = new();
+
+        public Instructor Instructor { get; set; }
     }
 }

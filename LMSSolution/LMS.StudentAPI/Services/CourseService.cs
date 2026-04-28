@@ -28,7 +28,8 @@ namespace LMS.StudentAPI.Services
                     ShortDescription = x.ShortDescription,
                     Title = x.Title,
                     Subtitle = x.Subtitle,
-                    Thumbnail = x.Thumbnail
+                    Thumbnail = x.Thumbnail,
+                    InstructorName = x.Instructor.DisplayName
                 })
                .ToListAsync();
         }
@@ -47,7 +48,8 @@ namespace LMS.StudentAPI.Services
                    Thumbnail = x.Thumbnail,
                    Price = x.Price,
                    FinalPrice = x.FinalPrice,
-                   DiscountPercentage = x.DiscountPercentage
+                   DiscountPercentage = x.DiscountPercentage,
+                   InstructorName = x.Instructor.DisplayName
                })
               .ToListAsync();
         }
@@ -60,6 +62,7 @@ namespace LMS.StudentAPI.Services
                 .Include(x => x.CourseTargetAudiences)
                 .Include(x => x.CourseLearningOutcomes)
                 .Include(x => x.CourseLanguage)
+                .Include(x => x.Instructor)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (course == null)
@@ -79,6 +82,7 @@ namespace LMS.StudentAPI.Services
                 Price = course.Price,
                 FinalPrice = course.FinalPrice,
                 DiscountPercentage = course.DiscountPercentage,
+                Instructor = course.Instructor,
 
                 CourseLanguageOutcomes = course.CourseLearningOutcomes.Select(x => x.Value).ToList(),
                 CourseRequirements = course.CourseRequirements.Select(x => x.Value).ToList(),

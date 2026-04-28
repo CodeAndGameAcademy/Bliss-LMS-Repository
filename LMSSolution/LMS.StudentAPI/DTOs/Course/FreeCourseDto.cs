@@ -10,5 +10,6 @@ namespace LMS.StudentAPI.DTOs.Course
         public string ShortDescription { get; set; } = string.Empty;
         public string Thumbnail { get; set; } = string.Empty;
         public DifficultyLevel DifficultyLevel { get; set; }
+        public string InstructorName { get; set; } = string.Empty;
     }
 }

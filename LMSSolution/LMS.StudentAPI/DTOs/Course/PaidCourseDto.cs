@@ -14,5 +14,7 @@ namespace LMS.StudentAPI.DTOs.Course
         public decimal Price { get; set; }
         public decimal FinalPrice { get; set; }
         public decimal DiscountPercentage { get; set; }
+
+        public string InstructorName { get; set; } = string.Empty;
     }
 }
