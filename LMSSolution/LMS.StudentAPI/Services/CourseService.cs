@@ -28,7 +28,7 @@ namespace LMS.StudentAPI.Services
                     ShortDescription = x.ShortDescription,
                     Title = x.Title,
                     Subtitle = x.Subtitle,
-                    Thumbnail = x.Thumbnail,
+                    Thumbnail = x.BaseUrl + "/" + x.Thumbnail,
                     InstructorName = x.Instructor.DisplayName
                 })
                .ToListAsync();
@@ -45,7 +45,7 @@ namespace LMS.StudentAPI.Services
                    ShortDescription = x.ShortDescription,
                    Title = x.Title,
                    Subtitle = x.Subtitle,
-                   Thumbnail = x.Thumbnail,
+                   Thumbnail = x.BaseUrl + "/" + x.Thumbnail,
                    Price = x.Price,
                    FinalPrice = x.FinalPrice,
                    DiscountPercentage = x.DiscountPercentage,
@@ -75,7 +75,7 @@ namespace LMS.StudentAPI.Services
                 Subtitle = course.Subtitle,
                 ShortDescription = course.ShortDescription,
                 LongDescription = course.LongDescription,
-                Thumbnail = course.Thumbnail,
+                Thumbnail = course.BaseUrl + "/" + course.Thumbnail,
                 DifficultyLevel = course.DifficultyLevel,
                 CourseLanguage = course.CourseLanguage.CourseLanguageName,
                 CourseType = course.CourseType,

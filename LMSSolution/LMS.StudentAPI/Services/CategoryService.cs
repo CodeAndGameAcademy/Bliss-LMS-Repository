@@ -24,7 +24,7 @@ namespace LMS.StudentAPI.Services
                     Id = x.Id,
                     Name = x.Name,
                     DisplayName = x.DisplayName,
-                    Image = x.Image,
+                    Image = x.BaseUrl + "/" + x.Image,
                     ParentId = x.ParentId
                 })
                 .ToListAsync();
@@ -39,7 +39,7 @@ namespace LMS.StudentAPI.Services
                    Id = x.Id,
                    Name = x.Name,
                    DisplayName = x.DisplayName,
-                   Image = x.Image,
+                   Image = x.BaseUrl + "/" + x.Image,
                    ParentId = x.ParentId
                })
                .ToListAsync();

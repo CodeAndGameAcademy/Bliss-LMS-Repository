@@ -25,7 +25,7 @@ namespace LMS.StudentAPI.Services
                 .Select(x => new SliderDto
                 {
                     Id = x.Id,
-                    Image = x.Image,
+                    Image = x.BaseUrl + "/" + x.Image,
                     OrderIndex = x.OrderIndex
                 }).ToListAsync();
 
@@ -36,7 +36,7 @@ namespace LMS.StudentAPI.Services
                     Id = x.Id,
                     Name = x.Name,
                     DisplayName = x.DisplayName,
-                    Image = x.Image,
+                    Image = x.BaseUrl + "/" + x.Image,
                     ParentId = x.ParentId
                 })
                 .ToListAsync();
@@ -50,7 +50,7 @@ namespace LMS.StudentAPI.Services
                     Degree = x.Degree,
                     About = x.About,
                     CertificationSkill = x.CertificationSkill,
-                    Image = x.Image
+                    Image = x.BaseUrl + "/" + x.Image
                 })
                 .ToListAsync();
 
@@ -63,7 +63,7 @@ namespace LMS.StudentAPI.Services
                     ShortDescription = x.ShortDescription,
                     Title = x.Title,
                     Subtitle = x.Subtitle,
-                    Thumbnail = x.Thumbnail,
+                    Thumbnail = x.BaseUrl + "/" + x.Thumbnail,
                     InstructorName = x.Instructor.DisplayName
                 })
                .ToListAsync();
@@ -77,7 +77,7 @@ namespace LMS.StudentAPI.Services
                    ShortDescription = x.ShortDescription,
                    Title = x.Title,
                    Subtitle = x.Subtitle,
-                   Thumbnail = x.Thumbnail,
+                   Thumbnail = x.BaseUrl + "/" + x.Thumbnail,
                    Price = x.Price,
                    FinalPrice = x.FinalPrice,
                    DiscountPercentage = x.DiscountPercentage,

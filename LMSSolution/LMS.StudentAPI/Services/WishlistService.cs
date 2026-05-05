@@ -45,7 +45,7 @@ namespace LMS.StudentAPI.Services
                     Id = x.Id,
                     CourseId = x.CourseId,
                     Title = x.Course.Title,
-                    Thumbnail = x.Course.Thumbnail,
+                    Thumbnail = x.Course.BaseUrl + "/" + x.Course.Thumbnail,
                     InstructorName = x.Course.Instructor.Name,
                     Price = x.Course.Price,
                     FinalPrice = x.Course.FinalPrice,

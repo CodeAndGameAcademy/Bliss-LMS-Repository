@@ -23,7 +23,7 @@ namespace LMS.StudentAPI.Services
             return sliders.Select(x => new SliderDto
             {
                 Id = x.Id,
-                Image = x.Image,
+                Image = x.BaseUrl + "/" + x.Image,
                 OrderIndex = x.OrderIndex
             }).ToList();
         }

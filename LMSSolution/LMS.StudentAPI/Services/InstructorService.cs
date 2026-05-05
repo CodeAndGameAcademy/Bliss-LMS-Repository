@@ -28,7 +28,7 @@ namespace LMS.StudentAPI.Services
                     Degree = x.Degree,
                     About = x.About,
                     CertificationSkill = x.CertificationSkill,
-                    Image = x.Image
+                    Image = x.BaseUrl + "/" + x.Image
                 })
                 .ToListAsync();
         }
@@ -50,7 +50,7 @@ namespace LMS.StudentAPI.Services
                 Degree = entity.Degree,
                 About = entity.About,
                 CertificationSkill = entity.CertificationSkill,
-                Image = entity.Image
+                Image = entity.BaseUrl + "/" + entity.Image
             };
         }
     }
