@@ -29,10 +29,27 @@ namespace LMS.StudentAPI.Controllers
         public async Task<IActionResult> StudentRegisteration(RegisterRequest request)
         {
             if (await _context.Users.AnyAsync(x => x.MobileNumber == request.MobileNumber))
-                return BadRequest("Mobile number already exists");
+                return BadRequest(new
+                {
+                    message = "Mobile number already exists"
+                });
 
             if (await _context.Users.AnyAsync(x => x.Email == request.Email))
-                return BadRequest("Email already exists");
+                return BadRequest(new
+                {
+                    message = "Email already exists"
+                });
+
+            if (await _context.Users.AnyAsync(x => x.PrimaryDeviceId == request.DeviceId))
+                return BadRequest(new
+                {
+                    message = "Device already registered with other account"
+                });
+            else if (await _context.Users.AnyAsync(x => x.SecondaryDeviceId == request.DeviceId))
+                return BadRequest(new
+                {
+                    message = "Device already registered with other account"
+                });
 
             var user = new User
             {
@@ -49,17 +66,32 @@ namespace LMS.StudentAPI.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok("User registered successfully");
+            return Ok(new
+            {
+                message = "User registered successfully"
+            });
         }
 
         // Login 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
+            Console.WriteLine("Login API Called......");
+
             var user = await _context.Users.FirstOrDefaultAsync(x => x.MobileNumber == request.MobileNumber && x.Role == Role.STUDENT && x.IsActive == true);
 
             if (user == null || !_passwordService.VerifyPassword(request.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials or Inactive");
+                return BadRequest(new { message = "Invalid credentials or Inactive" });
+
+            // Check Device Used
+            var isDeviceUsed = await _context.Users.AnyAsync(x => x.MobileNumber != request.MobileNumber &&
+                          (x.PrimaryDeviceId == request.DeviceId || x.SecondaryDeviceId == request.DeviceId));
+
+            if (isDeviceUsed)
+            {
+                return BadRequest(new { message = "Device already in use by another account." });
+            }
+
 
             // Device Checking
             if (!string.IsNullOrEmpty(user.PrimaryDeviceId) && user.PrimaryDeviceId != request.DeviceId)
@@ -73,7 +105,7 @@ namespace LMS.StudentAPI.Controllers
                 }
                 else if (user.SecondaryDeviceId != request.DeviceId)
                 {
-                    return Unauthorized("Device limit exceeded. Only 2 devices allowed.");
+                    return BadRequest(new { message = "Device limit exceeded. Only 2 devices allowed." });
                 }
             }
 
@@ -100,9 +132,12 @@ namespace LMS.StudentAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new AuthResponse
-            {
+            {                
                 AccessToken = accessToken,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                FullName = user.FullName,
+                Email = user.Email,
+                Image = user.Image,                
             });
         }
 
@@ -110,13 +145,15 @@ namespace LMS.StudentAPI.Controllers
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh(RefreshTokenRequest request)
         {
+            Console.WriteLine("Refresh API Called......");
+
             var token = await _context.RefreshTokens.Include(x => x.User).FirstOrDefaultAsync(x => x.Token == request.RefreshToken);
 
             if (token == null || token.ExpiresAt < DateTime.UtcNow)
-                return Unauthorized("Invalid refresh token");
+                return Unauthorized(new { message = "Invalid refresh token" });
 
             if (token.DeviceId != request.DeviceId)
-                return Unauthorized("Invalid device");
+                return Unauthorized(new { message = "Invalid device" });
 
             // Remove old token (rotation)
             _context.RefreshTokens.Remove(token);
@@ -145,25 +182,35 @@ namespace LMS.StudentAPI.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> Logout(LogoutRequest request)
         {
-            // Extract userId EVEN from expired token
-            var userIdClaim = User.FindFirst("userId")?.Value;
+            Console.WriteLine("Logout API Called......");
 
-            if (string.IsNullOrEmpty(userIdClaim))
-                return Unauthorized();
-
-            var userId = Guid.Parse(userIdClaim);
-
-            // Delete refresh token
-            var token = await _context.RefreshTokens
-                .FirstOrDefaultAsync(x => x.UserId == userId && x.Token == request.RefreshToken);
-
-            if (token != null)
+            try
             {
-                _context.RefreshTokens.Remove(token);
-                await _context.SaveChangesAsync();
-            }
+                // Extract userId EVEN from expired token
+                var userIdClaim = User.FindFirst("userId")?.Value;
 
-            return Ok("Logged out successfully");
+                if (string.IsNullOrEmpty(userIdClaim))
+                    throw new Exception("");
+
+                var userId = Guid.Parse(userIdClaim);
+
+                // Delete refresh token
+                var token = await _context.RefreshTokens
+                    .FirstOrDefaultAsync(x => x.UserId == userId && x.Token == request.RefreshToken);
+
+                if (token != null)
+                {
+                    _context.RefreshTokens.Remove(token);
+                    await _context.SaveChangesAsync();
+                }
+
+                return Ok(new { message = "Logged out successfully" });
+            }
+            catch(Exception ex)
+            {
+                return Ok(new { message = "Logged out succcessfully"+ex.Message });
+            }
+            
         }
     }
 }

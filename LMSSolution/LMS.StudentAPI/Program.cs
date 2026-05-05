@@ -15,6 +15,10 @@ namespace LMS.StudentAPI
     {
         public static void Main(string[] args)
         {
+            // ngrok config add-authtoken 3D6ZxFFSLtMoFp3V5NFaWZkFWpT_739YrpZZQNp5rks8pi7dq
+            // ngrok http https://localhost:7230
+            // https://dyslexia-crinkle-snort.ngrok-free.dev
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -35,7 +39,7 @@ namespace LMS.StudentAPI
 
                     return new BadRequestObjectResult(new
                     {
-                        Message = "Validation failed",
+                        Message = "Something is invalid",
                         Errors = errors
                     });
                 };
@@ -89,6 +93,16 @@ namespace LMS.StudentAPI
                     });
             });
 
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    policy => policy.AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod());
+            });
+
+
             // Register Custom Services
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
@@ -96,6 +110,7 @@ namespace LMS.StudentAPI
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICourseService, CourseService>();
             builder.Services.AddScoped<IWishlistService, WishlistService>();
+            builder.Services.AddScoped<IHomeService, HomeService>();
 
 
             // JWT Authentication
@@ -137,6 +152,8 @@ namespace LMS.StudentAPI
             });
 
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
 
             // Configure the HTTP request pipeline.
 

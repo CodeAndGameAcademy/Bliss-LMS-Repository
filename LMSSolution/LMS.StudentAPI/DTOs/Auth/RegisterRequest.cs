@@ -9,7 +9,7 @@ namespace LMS.StudentAPI.DTOs.Auth
         public string FullName { get; set; } = null!;
 
         [Required(ErrorMessage = "Mobile number is required")]
-        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Invalid mobile number")]
+        [RegularExpression(@"^\+?[1-9]\d{7,14}$", ErrorMessage = "Invalid mobile number")]
         public string MobileNumber { get; set; } = null!;
 
         [EmailAddress(ErrorMessage = "Invalid email address")]

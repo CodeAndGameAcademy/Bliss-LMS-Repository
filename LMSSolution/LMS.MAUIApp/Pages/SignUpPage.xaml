@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LMS.MAUIApp.Pages.SignUpPage"             
+             BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+             NavigationPage.HasNavigationBar="False">
+
+    <ScrollView Padding="16">
+        <Grid RowSpacing="4">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="8">
+                <Label Text="Sign Up" Style="{StaticResource HeadlineMedium}"  />
+                <Label Text="Let's get started by filling out the form below." Style="{StaticResource TitleSmall}"/>
+                <Image Source="logo.png" Margin="0,30" HorizontalOptions="Center" WidthRequest="150" />
+
+                <HorizontalStackLayout Spacing="2">
+                    <Label Text="Mobile" Style="{StaticResource TitleSmall}"/>
+                    <Label Text="*" Style="{StaticResource TitleSmall}" TextColor="{StaticResource ErrorColor}"/>
+                </HorizontalStackLayout>
+                <Entry x:Name="TxtMobile" Placeholder="Enter your mobile" BackgroundColor="Transparent" />
+
+
+                <HorizontalStackLayout Spacing="2">
+                    <Label Text="Email" Style="{StaticResource TitleSmall}"/>
+                    <Label Text="*" Style="{StaticResource TitleSmall}" TextColor="{StaticResource ErrorColor}"/>
+                </HorizontalStackLayout>
+                <Entry x:Name="TxtEmail" Placeholder="Enter your email" BackgroundColor="Transparent" />
+
+
+                <HorizontalStackLayout Spacing="2">
+                    <Label Text="Password" Style="{StaticResource TitleSmall}"/>
+                    <Label Text="*" Style="{StaticResource TitleSmall}" TextColor="{StaticResource ErrorColor}"/>
+                </HorizontalStackLayout>
+                <Entry x:Name="TxtPassword" IsPassword="True" Placeholder="Enter your password" BackgroundColor="Transparent" />
+
+                <Button x:Name="BtnSignUp" Text="Sign Up" Margin="0,12,0,0" Padding="8" Clicked="BtnSignUp_Clicked"></Button>
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" Margin="0,12">
+                    <Label Text="Already have an account? " Style="{StaticResource BodyMedium}" VerticalOptions="Center"/>
+                    <Label Text="Sign In" Style="{StaticResource TitleSmall}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLblSignInTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+                
+            </VerticalStackLayout>
+
+            <Label LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="0" HorizontalOptions="Fill" HorizontalTextAlignment="Center" LineHeight="1.5">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="By signing up you agree to our " Style="{StaticResource BodyMedium}" />
+
+                        <Span Text="Terms Of Service " Style="{StaticResource BodyMedium}"  TextColor="Blue">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTermsTapped"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+
+                        <Span Text="and " Style="{StaticResource BodyMedium}" />
+
+                        <Span Text="Privacy Policy" Style="{StaticResource BodyMedium}" TextColor="Blue">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPrivacyTapped"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+        </Grid>
+    </ScrollView>
+    
+</ContentPage>
