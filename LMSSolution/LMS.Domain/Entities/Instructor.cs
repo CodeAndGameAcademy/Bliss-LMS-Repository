@@ -14,6 +14,7 @@ namespace LMS.Domain.Entities
 
         public string? CertificationSkill { get; set; }
 
+        public string BaseUrl { get; set; } = string.Empty;
         public string Image { get; set; } = string.Empty;
     }
 }

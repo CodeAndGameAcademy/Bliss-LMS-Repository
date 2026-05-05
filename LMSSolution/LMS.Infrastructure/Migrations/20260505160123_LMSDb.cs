@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -26,6 +27,8 @@ namespace LMS.Infrastructure.Migrations
                     DisplayName = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: true, collation: "utf8mb4_unicode_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BaseUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -80,6 +83,8 @@ namespace LMS.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CertificationSkill = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    BaseUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -98,6 +103,8 @@ namespace LMS.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    BaseUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     OrderIndex = table.Column<int>(type: "int", nullable: false),
@@ -170,6 +177,8 @@ namespace LMS.Infrastructure.Migrations
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     DiscountPercentage = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     FinalPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    BaseUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Thumbnail = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, defaultValue: "uploads/default/course_thumbnail.png", collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DifficultyLevel = table.Column<int>(type: "int", nullable: false),
@@ -195,7 +204,7 @@ namespace LMS.Infrastructure.Migrations
                         column: x => x.InstructorId,
                         principalTable: "Instructors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_unicode_ci");
@@ -353,6 +362,36 @@ namespace LMS.Infrastructure.Migrations
                 .Annotation("Relational:Collation", "utf8mb4_unicode_ci");
 
             migrationBuilder.CreateTable(
+                name: "wishlist",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CourseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_wishlist", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_wishlist_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_wishlist_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .Annotation("Relational:Collation", "utf8mb4_unicode_ci");
+
+            migrationBuilder.CreateTable(
                 name: "CourseContents",
                 columns: table => new
                 {
@@ -362,6 +401,8 @@ namespace LMS.Infrastructure.Migrations
                     OrderIndex = table.Column<int>(type: "int", nullable: false),
                     CourseContentType = table.Column<int>(type: "int", nullable: false),
                     YoutubeVideoURL = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true, collation: "utf8mb4_unicode_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BaseUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ContentFile = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true, collation: "utf8mb4_unicode_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -502,6 +543,17 @@ namespace LMS.Infrastructure.Migrations
                 name: "IX_Users_Role",
                 table: "Users",
                 column: "Role");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_wishlist_CourseId",
+                table: "wishlist",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_wishlist_UserId_CourseId",
+                table: "wishlist",
+                columns: new[] { "UserId", "CourseId" },
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -527,6 +579,9 @@ namespace LMS.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sliders");
+
+            migrationBuilder.DropTable(
+                name: "wishlist");
 
             migrationBuilder.DropTable(
                 name: "Categories");

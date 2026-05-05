@@ -22,6 +22,7 @@ namespace LMS.Domain.Entities
 
 
         // Media
+        public string BaseUrl { get; set; } = string.Empty;
         public string Thumbnail { get; set; } = "uploads/default/course_thumbnail.png";
 
 

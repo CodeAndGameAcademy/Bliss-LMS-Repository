@@ -4,8 +4,8 @@ namespace LMS.Domain.Entities
 {
     public class Slider : BaseEntity
     {
+        public string BaseUrl { get; set; } = string.Empty;
         public string Image { get; set; } = string.Empty;
-
         public int OrderIndex { get; set; }
     }
 }

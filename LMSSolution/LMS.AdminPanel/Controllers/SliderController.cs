@@ -66,6 +66,7 @@ namespace LMS.AdminPanel.Controllers
 
                 var slider = new Slider
                 {
+                    BaseUrl = uploadResult.BaseUrl,
                     Image = uploadedPath,
                     OrderIndex = model.CreateSlider.OrderIndex
                 };

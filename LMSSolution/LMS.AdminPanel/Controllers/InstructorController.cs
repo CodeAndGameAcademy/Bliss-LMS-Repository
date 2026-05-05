@@ -61,6 +61,7 @@ namespace LMS.AdminPanel.Controllers
                     throw new BadRequestException("Display Name already exists");
 
                 string imagePath;
+                string baseUrl = "";
 
                 if (model.ImageFile != null)
                 {
@@ -72,6 +73,7 @@ namespace LMS.AdminPanel.Controllers
 
                     uploadedPath = uploadResult.FilePath;
                     imagePath = uploadedPath;
+                    baseUrl = uploadResult.BaseUrl;
                 }
                 else
                 {
@@ -85,6 +87,7 @@ namespace LMS.AdminPanel.Controllers
                     About = model.About,
                     Degree = model.Degree,
                     CertificationSkill = model.CertificationSkill,
+                    BaseUrl = baseUrl,
                     Image = imagePath,
                 };
 

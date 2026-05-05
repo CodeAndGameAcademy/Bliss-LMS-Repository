@@ -13,7 +13,7 @@ namespace LMS.Domain.Entities
         public string? DisplayName { get; set; }
 
         public string? Description { get; set; }
-
+        public string BaseUrl { get; set; } = string.Empty;
         public string Image { get; set; } = "uploads/default/category.png";
 
         // Self Reference

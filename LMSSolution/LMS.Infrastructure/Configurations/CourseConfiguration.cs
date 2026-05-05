@@ -18,6 +18,9 @@ namespace LMS.Infrastructure.Configurations
             builder.Property(x => x.ShortDescription).IsRequired().HasMaxLength(1000);
             builder.Property(x => x.LongDescription).IsRequired();
 
+            builder.Property(x => x.BaseUrl)
+                .HasMaxLength(500);
+
             builder.Property(x => x.Thumbnail)
                 .IsRequired()
                 .HasMaxLength(500)

@@ -23,6 +23,9 @@ namespace LMS.Infrastructure.Configurations
             builder.Property(x => x.YoutubeVideoURL)
                 .HasMaxLength(500);
 
+            builder.Property(x => x.BaseUrl)
+                .HasMaxLength(500);
+
             builder.Property(x => x.ContentFile)
                 .HasMaxLength(500);
 

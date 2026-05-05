@@ -33,6 +33,9 @@ namespace LMS.Infrastructure.Configurations
             builder.Property(x => x.CertificationSkill)
                 .HasMaxLength(500);
 
+            builder.Property(x => x.BaseUrl)
+                .HasMaxLength(500);
+
             builder.Property(x => x.Image)
                 .IsRequired()
                 .HasMaxLength(300);

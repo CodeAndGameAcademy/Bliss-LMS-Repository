@@ -177,6 +177,7 @@ namespace LMS.AdminPanel.Controllers
 
                 // IMAGE
                 string imagePath;
+                string baseUrl = "";
 
                 if (model.ImageFile != null)
                 {
@@ -187,7 +188,9 @@ namespace LMS.AdminPanel.Controllers
                         FileConstants.Image.MaxSize);
 
                     uploadedPath = uploadResult.FilePath;
+                    
                     imagePath = uploadedPath;
+                    baseUrl = uploadResult.BaseUrl;
                 }
                 else
                 {
@@ -201,6 +204,7 @@ namespace LMS.AdminPanel.Controllers
                     OrderIndex = model.OrderIndex,
                     DisplayName = displayName,
                     Description = model.Description,
+                    BaseUrl = baseUrl,
                     Image = imagePath,
                     ParentId = model.ParentId
                 };

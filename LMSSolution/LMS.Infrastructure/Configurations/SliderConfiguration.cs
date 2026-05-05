@@ -14,6 +14,9 @@ namespace LMS.Infrastructure.Configurations
             // Primary Key
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.BaseUrl)
+                .HasMaxLength(500);
+
             // Properties
             builder.Property(x => x.Image)
                 .IsRequired()

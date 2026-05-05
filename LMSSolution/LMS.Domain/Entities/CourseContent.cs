@@ -11,6 +11,8 @@ namespace LMS.Domain.Entities
         public CourseContentType CourseContentType { get; set; }
 
         public string? YoutubeVideoURL { get; set; }
+
+        public string BaseUrl { get; set; } = string.Empty;
         public string? ContentFile { get; set; }
 
         public int ContentLengthInMinutes { get; set; }

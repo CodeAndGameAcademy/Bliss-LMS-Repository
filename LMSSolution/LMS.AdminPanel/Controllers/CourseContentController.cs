@@ -159,6 +159,7 @@ namespace LMS.AdminPanel.Controllers
                 // Upload PDF 
                 string? pdfPath = null;
                 string? youtubeVideoUrl = null;
+                string baseUrl = "";
 
                 if (model.CreateCourseContent.CourseContentType == CourseContentType.Pdf)
                 {
@@ -191,6 +192,7 @@ namespace LMS.AdminPanel.Controllers
 
                     uploadedPath = upload.FilePath;
                     pdfPath = uploadedPath;
+                    baseUrl = upload.BaseUrl;
                 }
                 else if (model.CreateCourseContent.CourseContentType == CourseContentType.Video)
                 {
@@ -214,6 +216,7 @@ namespace LMS.AdminPanel.Controllers
                     CourseContentType = model.CreateCourseContent.CourseContentType,
                     OrderIndex = model.CreateCourseContent.OrderIndex,
                     YoutubeVideoURL = youtubeVideoUrl,
+                    BaseUrl = baseUrl,
                     ContentFile = pdfPath,
                     ContentLengthInMinutes = model.CreateCourseContent.ContentLengthInMinutes,
                     IsFreePreview = model.CreateCourseContent.IsFreePreview,

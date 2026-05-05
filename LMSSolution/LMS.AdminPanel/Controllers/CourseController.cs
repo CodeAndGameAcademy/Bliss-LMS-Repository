@@ -133,6 +133,7 @@ namespace LMS.AdminPanel.Controllers
                 if (exists) throw new BadRequestException("Slug already exists");
 
                 string imagePath;
+                string baseUrl = "";
 
                 if (model.Thumbnail != null)
                 {
@@ -144,6 +145,7 @@ namespace LMS.AdminPanel.Controllers
 
                     uploadedPath = uploadResult.FilePath;
                     imagePath = uploadedPath;
+                    baseUrl = uploadResult.BaseUrl;
                 }
                 else
                 {
@@ -166,6 +168,7 @@ namespace LMS.AdminPanel.Controllers
                     CourseStatus = model.CourseStatus,
 
                     IsSequentialAccess = model.IsSequentialAccess ? true : false,
+                    BaseUrl = baseUrl,
                     Thumbnail = imagePath
                 };
 

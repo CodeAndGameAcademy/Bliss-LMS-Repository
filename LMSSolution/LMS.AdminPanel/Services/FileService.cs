@@ -52,6 +52,7 @@ namespace LMS.AdminPanel.Services
             {
                 FileName = fileName,
                 FilePath = $"uploads/{folder}/{fileName}",
+                BaseUrl = baseUrl,
                 FileUrl = $"{baseUrl}/uploads/{folder}/{fileName}",
                 FileSize = file.Length,
                 ContentType = file.ContentType

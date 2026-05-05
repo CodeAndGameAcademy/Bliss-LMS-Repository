@@ -29,6 +29,9 @@ namespace LMS.Infrastructure.Configurations
             builder.Property(x => x.Description)
                 .HasMaxLength(1000);
 
+            builder.Property(x => x.BaseUrl)
+                .HasMaxLength(500);
+
             builder.Property(x => x.Image)
                 .IsRequired()
                 .HasMaxLength(500);
